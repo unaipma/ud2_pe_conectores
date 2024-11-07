@@ -1,6 +1,8 @@
 
 package Eugenio;
 
+import conexiones.DatabaseConnection;
+
 public class SynchronizationService {
 
     public void synchronizeProgress(int playerId) {
@@ -10,6 +12,6 @@ public class SynchronizationService {
 
         // Sincronizar con servidor (puedes usar una API REST o JDBC directamente para enviar los datos)
         JugadorDAO servidorDAO = new JugadorDAO(DatabaseConnection.getConnection());
-        servidorDAO.updatePlayerProgress(playerId, experience, lifeLevel, coins); // Simula el proceso de envío de datos
+        servidorDAO.updatePlayerProgress(playerId, nickname, experience, lifeLevel, coins); // Simula el proceso de envío de datos
     }
 }
