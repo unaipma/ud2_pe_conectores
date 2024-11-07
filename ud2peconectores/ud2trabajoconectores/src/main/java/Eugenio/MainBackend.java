@@ -1,10 +1,11 @@
 
 package Eugenio;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class MainBackend {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
         // Menú principal

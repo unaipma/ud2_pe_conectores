@@ -1,9 +1,11 @@
 
 package Eugenio;
 
+import java.sql.SQLException;
+
 public class SynchronizationService {
 
-    public void synchronizeProgress(int playerId) {
+    public void synchronizeProgress(int playerId) throws SQLException {
         // Obtén el progreso local
         JugadorClienteDAO clienteDAO = new JugadorClienteDAO(DatabaseConnection.getConnection());
         clienteDAO.getProgress(playerId);
