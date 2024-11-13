@@ -6,6 +6,7 @@ package daos;
 
 import Conexiones.Mysqlconexion;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,20 +28,21 @@ public class MysqlvideojuegoDAO implements VideojuegoDAO {
     }
 
     @Override
-    public void addVideojuego(Videojuego videojuego) throws SQLException {
-        String sql = "INSERT INTO videojuegos (isbn, title, player_count, total_sessions, last_session) VALUES (?, ?, ?, ?, ?)";
+    public void addVideojuego(Videojuego videojuego) throws SQLException {//unico cambiado
+        String sql = "INSERT INTO videojuegos (game_id,isbn, title, player_count, total_sessions, last_session) VALUES (?,?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, videojuego.getIsbn());
-            stmt.setString(2, videojuego.getTitle());
-            stmt.setInt(3, videojuego.getPlayer_count());
-            stmt.setInt(4, videojuego.getTotal_sessions());
-            stmt.setDate(5, videojuego.getLast_session() );
+            stmt.setInt(1, videojuego.getGame_id());
+            stmt.setInt(2, videojuego.getIsbn());
+            stmt.setString(3, videojuego.getTitle());
+            stmt.setInt(4, videojuego.getPlayer_count());
+            stmt.setInt(5, videojuego.getTotal_sessions());
+            stmt.setDate(6, videojuego.getLast_session() );
             stmt.executeUpdate();
 
-            ResultSet keys = stmt.getGeneratedKeys();
-            if (keys.next()) {
-                videojuego.setGame_id(keys.getInt(1));
-            }
+//            ResultSet keys = stmt.getGeneratedKeys();
+//            if (keys.next()) {
+//                videojuego.setGame_id(keys.getInt(1));
+//            }
         }
     }
 
