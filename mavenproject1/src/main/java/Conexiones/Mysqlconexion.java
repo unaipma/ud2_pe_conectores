@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class Mysqlconexion {
     public static Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/ud2conectores";
-        String user = "root";
+        String user = "mysql";
         String password = "lenovo";
         return DriverManager.getConnection(url, user, password);
     }
