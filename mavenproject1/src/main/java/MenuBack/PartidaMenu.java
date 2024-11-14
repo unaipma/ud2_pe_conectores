@@ -1,10 +1,11 @@
 package MenuBack;
 
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 import daos.PartidaDAO;
+import java.time.LocalDate;
 import modelos.Partida;
 /**
  *
@@ -67,9 +68,9 @@ public class PartidaMenu {
             int nivel = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea
             System.out.print("Última conexión (YYYY-MM-DD): ");
-            Date ultimaConexion = new Date(); // Inicializa con la fecha actual
+            Date ultimaConexion = Date.valueOf(LocalDate.now()); // Inicializa con la fecha actual
 
-            Partida nuevaPartida = new Partida(idPartida, idJuego, idJugador, monedas, experiencia, nivel,(java.sql.Date) ultimaConexion);
+            Partida nuevaPartida = new Partida(idPartida, idJuego, idJugador, monedas, experiencia, nivel,ultimaConexion);
             partidaDAO.addPartida(nuevaPartida);
             System.out.println("Partida agregada exitosamente.");
         } catch (SQLException e) {
@@ -114,9 +115,9 @@ public class PartidaMenu {
             int nivel = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea
             System.out.print("Última conexión (YYYY-MM-DD): ");
-            Date ultimaConexion = new Date(); // Inicializa con la fecha actual
+            Date ultimaConexion = Date.valueOf(LocalDate.now()); // Inicializa con la fecha actual
 
-            Partida partidaActualizada = new Partida(idPartida, idJuego, idJugador, monedas, experiencia, nivel,(java.sql.Date) ultimaConexion);
+            Partida partidaActualizada = new Partida(idPartida, idJuego, idJugador, monedas, experiencia, nivel,ultimaConexion);
             partidaDAO.updatePartida(partidaActualizada);
             System.out.println("Partida actualizada exitosamente.");
         } catch (SQLException e) {
