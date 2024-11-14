@@ -63,7 +63,7 @@ public class VideojuegoMenu {
         int playerCount = scanner.nextInt();
         System.out.print("Ingrese el total de sesiones: ");
         int totalSessions = scanner.nextInt();
-        Date lastSession = Date.valueOf(LocalDate.now()) /*Date.from(Instant.now())*/;// Inicializa con la fecha actual
+        Date lastSession = Date.valueOf(LocalDate.now());// Inicializa con la fecha actual
         
         Videojuego videojuego = new Videojuego(gameId, isbn, title, playerCount, totalSessions, lastSession);
 
@@ -110,8 +110,8 @@ public class VideojuegoMenu {
             videojuego.setPlayer_count(scanner.nextInt());
             System.out.print("Ingrese el nuevo total de sesiones (actual: " + videojuego.getTotal_sessions() + "): ");
             videojuego.setTotal_sessions(scanner.nextInt());
-           // videojuego.setLast_session((java.sql.Date) new Date());
-
+            videojuego.setLast_session(Date.valueOf(LocalDate.now()));
+            
             videojuegoDAO.updateVideojuego(videojuego);
             System.out.println("Videojuego modificado exitosamente.");
         } catch (SQLException e) {
