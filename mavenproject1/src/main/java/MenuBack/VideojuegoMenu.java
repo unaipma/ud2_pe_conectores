@@ -81,8 +81,12 @@ public class VideojuegoMenu {
         int gameId = scanner.nextInt();
 
         try {
-            videojuegoDAO.deleteVideojuego(gameId);
-            System.out.println("Videojuego eliminado exitosamente.");
+            
+            if (videojuegoDAO.deleteVideojuego(gameId)) {
+                System.out.println("Se ha eliminado correctamente");
+            }else{
+                System.out.println("El videojuego no existe, no se ha podido eliminar");
+            }
         } catch (SQLException e) {
             System.out.println("Error al eliminar el videojuego: " + e.getMessage());
         }
@@ -126,7 +130,7 @@ public class VideojuegoMenu {
             List<Videojuego> videojuegos = videojuegoDAO.getAllVideojuegos();
             if (!videojuegos.isEmpty()) {
                 for (Videojuego videojuego : videojuegos) {
-                    System.out.println(videojuego);
+                    System.out.println(videojuego.toString());
                 }
             } else {
                 System.out.println("No hay videojuegos registrados.");

@@ -73,12 +73,20 @@ public class PostgreJugadorDAO implements JugadorDAO {
     }
 
     @Override
-    public void deleteJugador(int id) throws SQLException {
+    public boolean deleteJugador(int id) throws SQLException {
+        
+         Jugador eliminado= getJugador(id);
+        if (eliminado==null) {
+            return true;
+        }else{
         String sql = "DELETE FROM jugadores WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
+            return false;
         }
+        }
+        
     }
 
     @Override

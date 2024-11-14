@@ -60,12 +60,19 @@ public class PostgrevideojuegoDAO implements VideojuegoDAO{
 }
 
     @Override
-public void deleteVideojuego(int gameId) throws SQLException {
+public boolean deleteVideojuego(int gameId) throws SQLException 
+{
+    Videojuego eliminado= getVideojuego(gameId);
+        if (eliminado==null) {
+           return false;
+        }else{
     String sql = "DELETE FROM videojuegos WHERE game_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
         stmt.setInt(1, gameId);
         stmt.executeUpdate();
     }
+            return true;
+        }
 }
 
 @Override

@@ -28,12 +28,15 @@ public class MysqljugadorDAO implements JugadorDAO {
 
     @Override
     public void addJugador(Jugador jugador) throws SQLException {
-        String sql = "INSERT INTO jugadores (nickname, experience, life_level, coins) VALUES (?, ?, ?, ?)";
+        
+        String sql = "INSERT INTO jugadores (nickname, experience, life_level, coins, session_count, last_login) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, jugador.getNick());
             stmt.setInt(2, jugador.getExperience());
             stmt.setInt(3, jugador.getLifeLevel());
             stmt.setInt(4, jugador.getCoins());
+            stmt.setDate(5, jugador.getLast_sesion());
+            stmt.setDate(6, jugador.getLast_login());
             stmt.executeUpdate();
 
             ResultSet keys = stmt.getGeneratedKeys();
@@ -75,11 +78,18 @@ public class MysqljugadorDAO implements JugadorDAO {
     }
 
     @Override
-    public void deleteJugador(int id) throws SQLException {
+    public boolean deleteJugador(int id) throws SQLException {
+        
+         Jugador eliminado= getJugador(id);
+        if (eliminado==null) {
+            return true;
+        }else{
         String sql = "DELETE FROM jugadores WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
+            return false;
+        }
         }
     }
 

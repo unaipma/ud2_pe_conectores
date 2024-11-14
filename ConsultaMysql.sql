@@ -1,7 +1,8 @@
 -- Tabla de Jugadores
 use ud2conectores;
-CREATE TABLE players (
-    player_id INT PRIMARY KEY,         -- ID único del jugador
+CREATE TABLE jugadores (
+    player_id INT PRIMARY KEY AUTO_INCREMENT,         -- ID único del jugador
+	nickname varchar(30),
     experience INT NOT NULL,           -- Nivel de experiencia
     life_level INT NOT NULL,           -- Puntos de vida del jugador
     coins INT NOT NULL,                -- Monedas acumuladas
@@ -10,7 +11,7 @@ CREATE TABLE players (
 );
 
 -- Tabla de Videojuegos
-CREATE TABLE games (
+CREATE TABLE videojuegos (
     game_id INT PRIMARY KEY,           -- Identificador del juego
     isbn VARCHAR(13) NOT NULL,         -- Identificador ISBN del juego
     title VARCHAR(255) NOT NULL,       -- Título del videojuego
@@ -20,7 +21,7 @@ CREATE TABLE games (
 );
 
 -- Tabla de Partidas
-CREATE TABLE sessions (
+CREATE TABLE partidas (
     game_id INT,                       -- Identificador del juego
     player_id INT,                     -- Identificador del jugador
     experience INT,                    -- Incremento del nivel de experiencia
@@ -28,6 +29,6 @@ CREATE TABLE sessions (
     coins INT,                          -- Actualización de las monedas acumuladas (+/-)
     session_date DATE,                 -- Fecha de la sesión o partida
     PRIMARY KEY (game_id, player_id, session_date),  -- Clave primaria compuesta
-    FOREIGN KEY (game_id) REFERENCES games(game_id),  -- Relación con la tabla juegos
-    FOREIGN KEY (player_id) REFERENCES players(player_id) -- Relación con la tabla jugadores
+    FOREIGN KEY (game_id) REFERENCES videojuegos(game_id),  -- Relación con la tabla juegos
+    FOREIGN KEY (player_id) REFERENCES jugadores(player_id) -- Relación con la tabla jugadores
 );

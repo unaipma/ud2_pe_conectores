@@ -106,12 +106,12 @@ public class JugadorMenu {
                 jugadorExistente.setCoins(nuevasCoins);
 
                 jugadorDAO.updateJugador(jugadorExistente);
-                System.out.println("Jugador actualizado exitosamente.");
+                System.out.println("\\u001B[32m[INFO] Jugador actualizado exitosamente.\\u001B[0m");
             } else {
-                System.out.println("No se encontró un jugador con ese ID.");
+                System.out.println("\n[ERROR] No se encontró un jugador con ese ID.");
             }
         } catch (SQLException e) {
-            System.out.println("Error al actualizar el jugador: " + e.getMessage());
+            System.out.println("\n[ERROR] Jugador no encontrado");
         }
     }
 
@@ -121,10 +121,15 @@ public class JugadorMenu {
         int id = scanner.nextInt();
 
         try {
-            jugadorDAO.deleteJugador(id);
-            System.out.println("Jugador eliminado exitosamente.");
+            if (jugadorDAO.deleteJugador(id)) {
+                 System.out.println("Jugador eliminado exitosamente.");
+            }else{
+                System.out.println("El jugador no existe, no se ha podido eliminar");
+            }
+            
+           
         } catch (SQLException e) {
-            System.out.println("Error al eliminar el jugador: " + e.getMessage());
+            System.out.println("No se ha podido eliminar el jugador");
         }
     }
 

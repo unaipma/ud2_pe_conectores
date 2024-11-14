@@ -63,12 +63,19 @@ public class MysqlvideojuegoDAO implements VideojuegoDAO {
 }
 
     @Override
-public void deleteVideojuego(int gameId) throws SQLException {
-    String sql = "DELETE FROM videojuegos WHERE game_id = ?";
+public boolean deleteVideojuego(int gameId) throws SQLException {
+    Videojuego eliminado= getVideojuego(gameId);
+        if (eliminado==null) {
+            return true;
+        }else{
+            String sql = "DELETE FROM videojuegos WHERE game_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
         stmt.setInt(1, gameId);
         stmt.executeUpdate();
     }
+            return false;
+        }
+    
 }
 
 @Override

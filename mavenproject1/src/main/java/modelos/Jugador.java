@@ -5,23 +5,27 @@
 package modelos;
 
 import java.io.Serializable;
-
+import java.sql.Date;
+import java.time.LocalDate;
 
 /**
- * 
- * 
+ *
+ *
  * @author Vespertino
  */
 public class Jugador implements Serializable {
+
     private int id;
     private String nick_name;
     private int experience;
     private int life_level;
     private int coins;
+    private Date last_sesion;
+    private Date last_login;
 
     /**
      * Constructor completo para inicializar un jugador con todos sus atributos.
-     * 
+     *
      * @param id El ID único del jugador.
      * @param nick El apodo del jugador.
      * @param experience La experiencia acumulada del jugador.
@@ -34,26 +38,41 @@ public class Jugador implements Serializable {
         this.experience = experience;
         this.life_level = lifeLevel;
         this.coins = coins;
+        this.last_sesion = sesion();
+        this.last_login = sesion();
     }
 
     /**
-     * Constructor por defecto que crea un jugador sin inicializar sus atributos.
+     * Constructor por defecto que crea un jugador sin inicializar sus
+     * atributos.
      */
     public Jugador() {
     }
 
     /**
      * Obtiene el ID del jugador.
-     * 
+     *
      * @return El ID del jugadorv(int).
      */
     public int getId() {
         return id;
     }
 
+    public Date getLast_sesion() {
+        return last_sesion;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Date getLast_login() {
+        return last_login;
+    }
+
     /**
      * Establece el ID del jugador.
-     * 
+     *
      * @param id El ID que va a tener el jugador(int).
      */
     public void setId(int id) {
@@ -62,7 +81,7 @@ public class Jugador implements Serializable {
 
     /**
      * Obtiene el apodo (Nick) del jugador.
-     * 
+     *
      * @return El Nick del jugado(String).
      */
     public String getNick() {
@@ -71,7 +90,7 @@ public class Jugador implements Serializable {
 
     /**
      * Establece el apodo (Nick) del jugador.
-     * 
+     *
      * @param nick El apodo que va a tener el jugador(String).
      */
     public void setNick(String nick) {
@@ -80,7 +99,7 @@ public class Jugador implements Serializable {
 
     /**
      * Obtiene la experiencia del jugador.
-     * 
+     *
      * @return La experiencia del jugador(int).
      */
     public int getExperience() {
@@ -89,7 +108,7 @@ public class Jugador implements Serializable {
 
     /**
      * Establece la experiencia del jugador.
-     * 
+     *
      * @param experience La experiencia que va a tener el jugador(int).
      */
     public void setExperience(int experience) {
@@ -98,7 +117,7 @@ public class Jugador implements Serializable {
 
     /**
      * Obtiene el nivel de vida del jugador.
-     * 
+     *
      * @return El nivel de vida del jugador.
      */
     public int getLifeLevel() {
@@ -107,7 +126,7 @@ public class Jugador implements Serializable {
 
     /**
      * Establece el nivel de vida del jugador.
-     * 
+     *
      * @param lifeLevel El nivel de vida que va a tener el jugador(int).
      */
     public void setLifeLevel(int lifeLevel) {
@@ -116,7 +135,7 @@ public class Jugador implements Serializable {
 
     /**
      * Obtiene la cantidad de monedas del jugador.
-     * 
+     *
      * @return La cantidad de monedas del jugador(int).
      */
     public int getCoins() {
@@ -125,7 +144,7 @@ public class Jugador implements Serializable {
 
     /**
      * Establece la cantidad de monedas del jugador.
-     * 
+     *
      * @param coins Las monedas que va a tener el jugador(int).
      */
     public void setCoins(int coins) {
@@ -133,13 +152,18 @@ public class Jugador implements Serializable {
     }
 
     /**
-     *Muestra la información del jugador
-     * 
+     * Muestra la información del jugador
+     *
      * @return Una cadena de texto con todos los atributos del jugador(Strings).
      */
     @Override
     public String toString() {
-        return "Jugador [ID=" + id + ", Nick=" + nick_name + ", Experience=" + experience 
-               + ", Life Level=" + life_level + ", Coins=" + coins + "]";
+        return "Jugador [ID=" + id + ", Nick=" + nick_name + ", Experience=" + experience
+                + ", Life Level=" + life_level + ", Coins=" + coins + "]";
+    }
+
+    private Date sesion() {
+        Date sesion = Date.valueOf(LocalDate.now());
+        return sesion;
     }
 }
