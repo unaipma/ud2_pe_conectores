@@ -44,7 +44,8 @@ public class MenuBackend {
                     case 1:
                         // Implementar la lógica de alta, baja y modificación de videojuegos
                         try {
-                            new VideojuegoMenu(factory.getVideojuegoDAO(tipoBD));
+                           VideojuegoMenu videojuegoMenu = new VideojuegoMenu(factory.getVideojuegoDAO(tipoBD));
+                           videojuegoMenu.mostrarMenuGestionVideoJuegos();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -53,7 +54,9 @@ public class MenuBackend {
                     case 2:
                         // Implementar lógica para la gestión de jugadores
                         try {
-                            new JugadorMenu(factory.getJugadorDAO(tipoBD));
+                            JugadorMenu jugadorMenu=new JugadorMenu(factory.getJugadorDAO(tipoBD));
+                            jugadorMenu.mostrarMenu();
+                            
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -62,7 +65,8 @@ public class MenuBackend {
                     case 3:
                         // Implementar lógica para gestionar el progreso de los jugadores
                         try {
-                            new PartidaMenu(factory.getPartidaDAO(tipoBD));
+                            PartidaMenu partidaMenu =new PartidaMenu(factory.getPartidaDAO(tipoBD));
+                            partidaMenu.mostrarMenuGestionarPartidas();
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }

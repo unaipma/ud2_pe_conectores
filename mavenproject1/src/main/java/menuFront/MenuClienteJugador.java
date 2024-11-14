@@ -13,19 +13,23 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelos.Partida;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import modelos.PlayerProgress;
 
 /**
  *
  * @author eugeniolorentecristobal
  */
 public class MenuClienteJugador {
-
+    private JuegoConf juegoconf;
     private File json = new File("config.json");
     private Jugador jugador;
     private JuegoConf jugadorConf;
@@ -34,6 +38,7 @@ public class MenuClienteJugador {
     private Partida partida;
     private PartidaDAO partidaDAO;
     private String tipoBD;
+    private PlayerProgress playerProgress;
 
     public MenuClienteJugador() throws IOException, SQLException {
         // Se inicializa la conexión a la base de datos local
@@ -48,7 +53,11 @@ public class MenuClienteJugador {
 
     public void mostrarMenuPrincipal() {
         int opcion;
+
         Scanner scanner = new Scanner(System.in);
+
+        verificarCredencialesJugador(scanner);
+
 
         do {
             System.out.println("\nAplicación Cliente del Jugador - Menú Principal:");
@@ -143,7 +152,7 @@ public class MenuClienteJugador {
             int playerId = scanner.nextInt();
             System.out.print("Introduce la contraseña: ");
             String password = scanner.next();
-            credencialesValidas = jugadorConf.verificarCredenciales(playerId, password);
+            credencialesValidas = jugadorConf.verificarCredenciales(playerId,juegoconf.getPass() );
             System.out.println(credencialesValidas ? "Credenciales válidas." : "Credenciales incorrectas.");
         } while (!credencialesValidas);
     }
@@ -155,7 +164,7 @@ public class MenuClienteJugador {
             System.out.println("1. Guardar configuraciones en SQLite");
             System.out.println("2. Sincronizar progreso del jugador");
             System.out.println("3. Mostrar estadísticas y progreso actual");
-            System.out.println("4. Iniciar nueva partida");
+            System.out.println("4. Editar configuración");
             System.out.println("5. Volver al Menú Principal");
             System.out.print("Selecciona una opción: ");
             opcion = scanner.nextInt();
@@ -171,7 +180,7 @@ public class MenuClienteJugador {
                     mostrarEstadisticasJugador(scanner);
                     break;
                 case 4:
-                    iniciarNuevaPartida(scanner);
+                    editarConfiguracion(scanner, playerProgress);
                     break;
                 case 5:
                     System.out.println("Volviendo al Menú Principal...");
@@ -219,33 +228,43 @@ public class MenuClienteJugador {
         }
     }
 
-    private void iniciarNuevaPartida(Scanner scanner) {
-        System.out.print("Introduce el ID de la nueva partida: ");
-        int idpartida = scanner.nextInt();
-        System.out.print("Introduce el ID del juego: ");
-        int idjuego = scanner.nextInt();
-        System.out.print("Introduce el ID del jugador: ");
-        int playerId = scanner.nextInt();
-        System.out.print("Introduce las monedas iniciales: ");
-        int monedas = scanner.nextInt();
-        System.out.print("Introduce la experiencia inicial: ");
-        int exp = scanner.nextInt();
-        System.out.print("Introduce el nivel inicial: ");
-        int nivel = scanner.nextInt();
-        System.out.print("Introduce la última conexión (formato YYYY-MM-DD): ");
-        String fechaConexion = scanner.next();
-
+    private void editarConfiguracion(Scanner scanner, PlayerProgress playerProgress) {
+        // Crear la conexión a la base de datos
+        Connection conn = null;
         try {
-            Date ultimaconexion = Date.valueOf(fechaConexion);
-            Partida nuevaPartida = new Partida(idpartida, idjuego, playerId, monedas, exp, nivel, ultimaconexion);
-            sqliteManager.addPartida(nuevaPartida);
-            System.out.println("Nueva partida iniciada.");
+            conn = Sqlliteconexion.getConnection();
         } catch (SQLException e) {
-            System.out.println("Error al iniciar nueva partida: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Formato de fecha inválido. Por favor, usa el formato YYYY-MM-DD.");
+            throw new RuntimeException(e);
+        }
+
+        // SQL para insertar o actualizar en la tabla player_progress
+        String sql = "INSERT INTO player_progress (player_id, nick_name, experience, life_level, coins, session_count, last_login) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?) " +
+                "ON CONFLICT(player_id) DO UPDATE SET " +
+                "nick_name = excluded.nick_name, " +
+                "experience = excluded.experience, " +
+                "life_level = excluded.life_level, " +
+                "coins = excluded.coins, " +
+                "session_count = excluded.session_count, " +
+                "last_login = excluded.last_login";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            // Establecer los parámetros de la consulta
+            stmt.setInt(1, playerProgress.getPlayerId()); // player_id
+            stmt.setString(2, playerProgress.getNickName()); // nick_name
+            stmt.setInt(3, playerProgress.getExperience()); // experience
+            stmt.setInt(4, playerProgress.getLifeLevel()); // life_level
+            stmt.setInt(5, playerProgress.getCoins()); // coins
+            stmt.setInt(6, playerProgress.getSessionCount()); // session_count
+            stmt.setString(7, playerProgress.getLastLogin()); // last_login
+
+            // Ejecutar la consulta
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
 
     private void menuJugar(Scanner scanner) {
         int opcion;

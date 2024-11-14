@@ -9,11 +9,13 @@ import daos.DAOFactory;
 import daos.JugadorDAO;
 import daos.SQLiteVideojuegoDAO;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import daos.VideojuegoDAO;
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDate;
 import modelos.Videojuego;
 
 public class VideojuegoMenu {
@@ -61,9 +63,9 @@ public class VideojuegoMenu {
         int playerCount = scanner.nextInt();
         System.out.print("Ingrese el total de sesiones: ");
         int totalSessions = scanner.nextInt();
-        Date lastSession = new Date(); // Inicializa con la fecha actual
+        Date lastSession = Date.valueOf(LocalDate.now()) /*Date.from(Instant.now())*/;// Inicializa con la fecha actual
         
-        Videojuego videojuego = new Videojuego(gameId, isbn, title, playerCount, totalSessions, (java.sql.Date) lastSession);
+        Videojuego videojuego = new Videojuego(gameId, isbn, title, playerCount, totalSessions, lastSession);
 
         try {
             videojuegoDAO.addVideojuego(videojuego);
@@ -108,7 +110,7 @@ public class VideojuegoMenu {
             videojuego.setPlayer_count(scanner.nextInt());
             System.out.print("Ingrese el nuevo total de sesiones (actual: " + videojuego.getTotal_sessions() + "): ");
             videojuego.setTotal_sessions(scanner.nextInt());
-            videojuego.setLast_session((java.sql.Date) new Date());
+           // videojuego.setLast_session((java.sql.Date) new Date());
 
             videojuegoDAO.updateVideojuego(videojuego);
             System.out.println("Videojuego modificado exitosamente.");

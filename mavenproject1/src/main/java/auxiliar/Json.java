@@ -14,8 +14,8 @@ import java.io.IOException;
  */
 public class Json {
     
-    private static final String FILE_NAME = "config.json";
-    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private static  String FILE_NAME = "config.json";
+    private static  Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     // Método para guardar la configuración en un archivo JSON
     public static void saveConfig(JuegoConf config) {
