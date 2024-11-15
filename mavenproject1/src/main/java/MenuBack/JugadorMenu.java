@@ -60,9 +60,8 @@ public class JugadorMenu {
     private void agregarJugador(Scanner scanner) {
         scanner.nextLine();  // Limpiar buffer
         System.out.println("\n--- Agregar un Jugador ---");
-        System.out.print("ID del jugador: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();  // Limpiar buffer
+        
+       
         System.out.print("Nickname del jugador: ");
         String nick = scanner.nextLine();
         System.out.print("Nivel de experiencia: ");
@@ -72,7 +71,7 @@ public class JugadorMenu {
         System.out.print("Cantidad de monedas: ");
         int coins = scanner.nextInt();
 
-        Jugador nuevoJugador = new Jugador(id, nick, experience, lifeLevel, coins);
+        Jugador nuevoJugador = new Jugador(0, nick, experience, lifeLevel, coins);
 
         try {
             jugadorDAO.addJugador(nuevoJugador);
@@ -146,7 +145,7 @@ public class JugadorMenu {
                 System.out.println("No se encontró un jugador con ese ID.");
             }
         } catch (SQLException e) {
-            System.out.println("Error al mostrar el jugador: " + e.getMessage());
+            System.out.println("No se ha encontrado al jugador");
         }
     }
 

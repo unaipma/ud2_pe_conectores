@@ -20,7 +20,7 @@ public class Jugador implements Serializable {
     private int experience;
     private int life_level;
     private int coins;
-    private Date last_sesion;
+    private int session_count;
     private Date last_login;
 
     /**
@@ -38,7 +38,7 @@ public class Jugador implements Serializable {
         this.experience = experience;
         this.life_level = lifeLevel;
         this.coins = coins;
-        this.last_sesion = sesion();
+        this.session_count = 0;
         this.last_login = sesion();
     }
 
@@ -58,8 +58,8 @@ public class Jugador implements Serializable {
         return id;
     }
 
-    public Date getLast_sesion() {
-        return last_sesion;
+    public int getSession_count() {
+        return session_count;
     }
 
     /**

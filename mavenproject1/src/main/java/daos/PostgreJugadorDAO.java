@@ -26,18 +26,18 @@ public class PostgreJugadorDAO implements JugadorDAO {
 
     @Override
     public void addJugador(Jugador jugador) throws SQLException {
-        String sql = "INSERT INTO jugadores (nickname, experience, life_level, coins) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO jugadores (player_id,nickname, experience, life_level, coins, session_count, last_login) VALUES (?,?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, jugador.getNick());
-            stmt.setInt(2, jugador.getExperience());
-            stmt.setInt(3, jugador.getLifeLevel());
-            stmt.setInt(4, jugador.getCoins());
+            stmt.setInt(1,jugador.getId());
+            stmt.setString(2, jugador.getNick());
+            stmt.setInt(3, jugador.getExperience());
+            stmt.setInt(4, jugador.getLifeLevel());
+            stmt.setInt(5, jugador.getCoins());
+            stmt.setInt(6, jugador.getSession_count());
+            stmt.setDate(7, jugador.getLast_login());
             stmt.executeUpdate();
 
-            ResultSet keys = stmt.getGeneratedKeys();
-            if (keys.next()) {
-                jugador.setId(keys.getInt(1));
-            }
+            
         }
     }
 
@@ -48,7 +48,7 @@ public class PostgreJugadorDAO implements JugadorDAO {
         try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 jugadores.add(new Jugador(
-                        rs.getInt("id"),
+                        rs.getInt("player_id"),
                         rs.getString("nickname"),
                         rs.getInt("experience"),
                         rs.getInt("life_level"),
@@ -97,7 +97,7 @@ public class PostgreJugadorDAO implements JugadorDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Jugador(
-                            rs.getInt("id"),
+                            rs.getInt("player_id"),
                             rs.getString("nickname"),
                             rs.getInt("experience"),
                             rs.getInt("life_level"),

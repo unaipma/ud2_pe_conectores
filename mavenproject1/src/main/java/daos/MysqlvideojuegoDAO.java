@@ -38,11 +38,6 @@ public class MysqlvideojuegoDAO implements VideojuegoDAO {
             stmt.setInt(5, videojuego.getTotal_sessions());
             stmt.setDate(6, videojuego.getLast_session() );
             stmt.executeUpdate();
-
-//            ResultSet keys = stmt.getGeneratedKeys();
-//            if (keys.next()) {
-//                videojuego.setGame_id(keys.getInt(1));
-//            }
         }
     }
 
@@ -66,14 +61,14 @@ public class MysqlvideojuegoDAO implements VideojuegoDAO {
 public boolean deleteVideojuego(int gameId) throws SQLException {
     Videojuego eliminado= getVideojuego(gameId);
         if (eliminado==null) {
-            return true;
+            return false;
         }else{
             String sql = "DELETE FROM videojuegos WHERE game_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
         stmt.setInt(1, gameId);
         stmt.executeUpdate();
     }
-            return false;
+            return true;
         }
     
 }
