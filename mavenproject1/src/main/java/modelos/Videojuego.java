@@ -112,6 +112,12 @@ public class Videojuego implements Serializable {
         this.total_sessions = total_sessions;
         this.last_session = last_session;
     }
+
+    @Override
+    public String toString() {
+        return "Videojuego{" + "game_id=" + game_id + ", isbn=" + isbn + ", title=" + title + ", player_count=" + player_count + ", total_sessions=" + total_sessions + ", last_session=" + last_session + '}';
+    }
+    
     
     
 }

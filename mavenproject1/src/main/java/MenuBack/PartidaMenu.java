@@ -54,8 +54,6 @@ public class PartidaMenu {
     private void agregarPartida(Scanner scanner) {
         try {
             System.out.println("Ingrese los detalles de la nueva partida:");
-            System.out.print("ID de la partida: ");
-            int idPartida = scanner.nextInt();
             System.out.print("ID del juego: ");
             int idJuego = scanner.nextInt();
             System.out.print("ID del jugador: ");
@@ -67,14 +65,14 @@ public class PartidaMenu {
             System.out.print("Nivel: ");
             int nivel = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea
-            System.out.print("Última conexión (YYYY-MM-DD): ");
+            
             Date ultimaConexion = Date.valueOf(LocalDate.now()); // Inicializa con la fecha actual
 
-            Partida nuevaPartida = new Partida(idPartida, idJuego, idJugador, monedas, experiencia, nivel,ultimaConexion);
+            Partida nuevaPartida = new Partida( idJuego, idJugador, monedas, experiencia, nivel,ultimaConexion);
             partidaDAO.addPartida(nuevaPartida);
             System.out.println("Partida agregada exitosamente.");
         } catch (SQLException e) {
-            System.out.println("Error al agregar la partida: " + e.getMessage());
+            System.out.println("Error al agregar la partida");
         }
     }
 
@@ -101,8 +99,6 @@ public class PartidaMenu {
     private void actualizarPartida(Scanner scanner) {
         try {
             System.out.println("Ingrese los detalles de la partida a actualizar:");
-            System.out.print("ID de la partida: ");
-            int idPartida = scanner.nextInt();
             System.out.print("ID del juego: ");
             int idJuego = scanner.nextInt();
             System.out.print("ID del jugador: ");
@@ -115,9 +111,10 @@ public class PartidaMenu {
             int nivel = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea
             System.out.print("Última conexión (YYYY-MM-DD): ");
-            Date ultimaConexion = Date.valueOf(LocalDate.now()); // Inicializa con la fecha actual
+            
+           Date ultimaConexion = Date.valueOf(scanner.nextLine()); // Inicializa con la fecha actual
 
-            Partida partidaActualizada = new Partida(idPartida, idJuego, idJugador, monedas, experiencia, nivel,ultimaConexion);
+            Partida partidaActualizada = new Partida( idJuego, idJugador, monedas, experiencia, nivel,ultimaConexion);
             partidaDAO.updatePartida(partidaActualizada);
             System.out.println("Partida actualizada exitosamente.");
         } catch (SQLException e) {

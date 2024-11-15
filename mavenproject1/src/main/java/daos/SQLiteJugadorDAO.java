@@ -56,7 +56,7 @@ public class SQLiteJugadorDAO implements JugadorDAO {
     }
 
     @Override
-    public void deleteJugador(int id) throws SQLException {
+    public boolean deleteJugador(int id) throws SQLException {
         String sql = "DELETE FROM Jugador WHERE id = ?";
         
         try (Connection conn = connect();
@@ -65,6 +65,7 @@ public class SQLiteJugadorDAO implements JugadorDAO {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
+        return true;
     }
 
     @Override

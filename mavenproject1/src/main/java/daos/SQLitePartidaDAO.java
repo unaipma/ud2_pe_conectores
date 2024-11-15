@@ -34,7 +34,7 @@ public class SQLitePartidaDAO implements PartidaDAO {
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
              
-            stmt.setInt(1, partida.getIdpartida());
+          
             stmt.setInt(2, partida.getIdjuego());
             stmt.setInt(3, partida.getIdjugador());
             stmt.setInt(4, partida.getMonedas());
@@ -59,7 +59,7 @@ public class SQLitePartidaDAO implements PartidaDAO {
 
             while (rs.next()) {
                 Partida partida = new Partida(
-                    rs.getInt("idpartida"),
+                 
                     rs.getInt("idjuego"),
                     rs.getInt("idjugador"),
                     rs.getInt("monedas"),
@@ -84,7 +84,7 @@ public class SQLitePartidaDAO implements PartidaDAO {
             stmt.setInt(2, partida.getExp());
             stmt.setInt(3, partida.getNivel());
             stmt.setDate(4, new java.sql.Date(partida.getUltimaconexion().getTime())); // Convertir Date a java.sql.Date
-            stmt.setInt(5, partida.getIdpartida());
+           
             
             stmt.executeUpdate();
         }
