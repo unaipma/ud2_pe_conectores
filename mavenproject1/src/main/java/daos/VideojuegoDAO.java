@@ -15,7 +15,7 @@ import modelos.Videojuego;
 public interface VideojuegoDAO {
     void addVideojuego(Videojuego videojuego) throws SQLException;
     void updateVideojuego(Videojuego videojuego) throws SQLException;
-    void deleteVideojuego(int gameId) throws SQLException;
+    boolean deleteVideojuego(int gameId) throws SQLException;
     Videojuego getVideojuego(int gameId) throws SQLException;
     List<Videojuego> getAllVideojuegos() throws SQLException;
 }

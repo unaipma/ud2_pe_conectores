@@ -294,8 +294,7 @@ public class MenuClienteJugador {
 
     private void iniciarNuevaPartida(Scanner scanner) {
         System.out.println("\nIniciar Nueva Partida:");
-        System.out.print("Introduce el ID de la nueva partida: ");
-        int idpartida = scanner.nextInt();
+      
         System.out.print("Introduce el ID del juego: ");
         int idjuego = scanner.nextInt();
         System.out.print("Introduce el ID del jugador: ");
@@ -311,7 +310,7 @@ public class MenuClienteJugador {
 
         try {
             Date ultimaconexion = Date.valueOf(fechaConexion);
-            Partida nuevaPartida = new Partida(idpartida, idjuego, playerId, monedas, exp, nivel, ultimaconexion);
+            Partida nuevaPartida = new Partida( idjuego, playerId, monedas, exp, nivel, ultimaconexion);
             sqliteManager.addPartida(nuevaPartida);
             System.out.println("Nueva partida iniciada con éxito.");
         } catch (SQLException e) {

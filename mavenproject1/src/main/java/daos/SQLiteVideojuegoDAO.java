@@ -59,7 +59,7 @@ public class SQLiteVideojuegoDAO implements VideojuegoDAO {
     }
 
     @Override
-    public void deleteVideojuego(int gameId) throws SQLException {
+    public boolean deleteVideojuego(int gameId) throws SQLException {
         String sql = "DELETE FROM Videojuego WHERE game_id = ?";
         
         try (Connection conn = connect();
@@ -68,6 +68,7 @@ public class SQLiteVideojuegoDAO implements VideojuegoDAO {
             stmt.setInt(1, gameId);
             stmt.executeUpdate();
         }
+        return true;
     }
 
     @Override

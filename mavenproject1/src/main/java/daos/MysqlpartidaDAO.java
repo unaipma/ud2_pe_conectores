@@ -48,7 +48,6 @@ public class MysqlpartidaDAO implements PartidaDAO{
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     partidas.add(new Partida(
-                        rs.getInt("partida_id"),
                         rs.getInt("game_id"),
                         rs.getInt("player_id"),
                         rs.getInt("experience"),
@@ -64,7 +63,7 @@ public class MysqlpartidaDAO implements PartidaDAO{
 
     @Override
     public void updatePartida(Partida partida) throws SQLException {
-    String sql = "UPDATE partidas SET game_id = ?, player_id = ?, experience = ?, life_level = ?, coins = ?, session_date = ? WHERE partida_id = ?";
+    String sql = "UPDATE partidas SET game_id = ?, player_id = ?, experience = ?, life_level = ?, coins = ?, session_date = ? WHERE player_id = ? AND game_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
         stmt.setInt(1, partida.getIdjuego());
         stmt.setInt(2, partida.getIdjugador());
@@ -72,7 +71,9 @@ public class MysqlpartidaDAO implements PartidaDAO{
         stmt.setInt(4, partida.getNivel());
         stmt.setInt(5, partida.getMonedas());
         stmt.setDate(6, partida.getUltimaconexion());
-        stmt.setInt(7, partida.getIdpartida()); 
+        stmt.setInt(7, partida.getIdjugador());
+        stmt.setInt(8, partida.getIdjuego());
+       
         stmt.executeUpdate();
     }
 }

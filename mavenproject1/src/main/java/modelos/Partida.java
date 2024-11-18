@@ -10,7 +10,7 @@ import java.time.LocalDate;
  * @author unaip
  */
 public class Partida implements Serializable {
-    private int idpartida ;
+    
     private int idjuego ;
     private int idjugador;
     private int monedas;
@@ -21,8 +21,8 @@ public class Partida implements Serializable {
     public Partida() {
     }
 
-    public Partida(int idpartida, int idjuego, int idjugador, int monedas, int exp, int nivel, Date ultimaconexion) {
-        this.idpartida = idpartida;
+    public Partida( int idjuego, int idjugador, int monedas, int exp, int nivel, Date ultimaconexion) {
+       
         this.idjuego = idjuego;
         this.idjugador = idjugador;
         this.monedas = monedas;
@@ -33,19 +33,8 @@ public class Partida implements Serializable {
     
     
     
-    /**
-     * @return the idpartida
-     */
-    public int getIdpartida() {
-        return idpartida;
-    }
+    
 
-    /**
-     * @param idpartida the idpartida to set
-     */
-    public void setIdpartida(int idpartida) {
-        this.idpartida = idpartida;
-    }
 
     /**
      * @return the idjuego
@@ -130,7 +119,13 @@ public class Partida implements Serializable {
     public void setUltimaconexion(Date ultimaconexion) {
         this.ultimaconexion = ultimaconexion;
     }
-                    
+
+    @Override
+    public String toString() {
+        return "Partida{" + "idjuego=" + idjuego + ", idjugador=" + idjugador + ", monedas=" + monedas + ", exp=" + exp + ", nivel=" + nivel + ", ultimaconexion=" + ultimaconexion + '}';
+    }
+    
+    
     
 }
 
