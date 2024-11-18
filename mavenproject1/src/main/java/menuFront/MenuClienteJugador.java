@@ -5,7 +5,7 @@ import Conexiones.Sqlliteconexion;
 import auxiliar.JuegoConf;
 import daos.DAOFactory;
 import daos.PartidaDAO;
-import daos.SQLitePartidaDAO;
+import daos.SQLitePlayerProgressDAO;
 import java.io.File;
 import java.io.IOException;
 import modelos.Jugador;
@@ -29,11 +29,12 @@ import modelos.PlayerProgress;
  * @author eugeniolorentecristobal
  */
 public class MenuClienteJugador {
+
     private JuegoConf juegoconf;
     private File json = new File("config.json");
     private Jugador jugador;
     private JuegoConf jugadorConf;
-    private SQLitePartidaDAO sqliteManager;
+    private SQLitePlayerProgressDAO sqliteManager;
     private Connection serverSyncManager;  // Administrador para sincronización con el servidor
     private Partida partida;
     private PartidaDAO partidaDAO;
@@ -48,7 +49,7 @@ public class MenuClienteJugador {
             json.createNewFile();
         }
         // Inicializar sqliteManager para manejar las partidas
-        sqliteManager = new SQLitePartidaDAO();
+        sqliteManager = new SQLitePlayerProgressDAO();
     }
 
     public void mostrarMenuPrincipal() {
@@ -57,7 +58,6 @@ public class MenuClienteJugador {
         Scanner scanner = new Scanner(System.in);
 
         verificarCredencialesJugador(scanner);
-
 
         do {
             System.out.println("\nAplicación Cliente del Jugador - Menú Principal:");
@@ -116,33 +116,33 @@ public class MenuClienteJugador {
     }
 
     private void configurarConexionServidor(Scanner scanner) {
-        /*System.out.print("Seleccione el tipo de base de datos (MySQL o PostgreSQL): ");
-        String tipoBaseDatos = scanner.next();
-        try {
-            serverSyncManager = ConexionSelector.obtenerConexion(tipoBaseDatos);
-            System.out.println("Conexión configurada correctamente con " + tipoBaseDatos);
-        } catch (SQLException e) {
-            System.err.println("Error al configurar la conexión: " + e.getMessage());
-        }*/
-        System.out.println("Indica que base de datos quieres utilizar : 1.Mysql 2. Postgres");
-        int n = scanner.nextInt();
-
-        switch (n) {
-            case 1:
-                tipoBD = "mysql";
-                break;
-            case 2:
-                tipoBD = "postgresql";
-                break;
-            default:
-                tipoBD = "mysql";
-                break;
-        }
-        try {
-            partidaDAO = DAOFactory.getPartidaDAO(tipoBD);
-        } catch (SQLException ex) {
-            Logger.getLogger(MenuClienteJugador.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        /*System.out.print("Seleccione el tipo de base de datos (MySQL o PostgreSQL): ");
+//        String tipoBaseDatos = scanner.next();
+//        try {
+//            serverSyncManager = ConexionSelector.obtenerConexion(tipoBaseDatos);
+//            System.out.println("Conexión configurada correctamente con " + tipoBaseDatos);
+//        } catch (SQLException e) {
+//            System.err.println("Error al configurar la conexión: " + e.getMessage());
+//        }*/
+//        System.out.println("Indica que base de datos quieres utilizar : 1.Mysql 2. Postgres");
+//        int n = scanner.nextInt();
+//
+//        switch (n) {
+//            case 1:
+//                tipoBD = "mysql";
+//                break;
+//            case 2:
+//                tipoBD = "postgresql";
+//                break;
+//            default:
+//                tipoBD = "mysql";
+//                break;
+//        }
+//        try {
+//            partidaDAO = DAOFactory.getPartidaDAO(tipoBD);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(MenuClienteJugador.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     private void verificarCredencialesJugador(Scanner scanner) {
@@ -152,7 +152,7 @@ public class MenuClienteJugador {
             int playerId = scanner.nextInt();
             System.out.print("Introduce la contraseña: ");
             String password = scanner.next();
-            credencialesValidas = jugadorConf.verificarCredenciales(playerId,juegoconf.getPass() );
+            credencialesValidas = jugadorConf.verificarCredenciales(playerId, juegoconf.getPass());
             System.out.println(credencialesValidas ? "Credenciales válidas." : "Credenciales incorrectas.");
         } while (!credencialesValidas);
     }
@@ -193,7 +193,7 @@ public class MenuClienteJugador {
 
     private void guardarConfiguracionesSQLite() {
         try {
-            sqliteManager.addPartida(partida); // Suponiendo que "partida" es una instancia de la clase Partida
+            sqliteManager.addPlayerProgress(playerProgress); // Suponiendo que "partida" es una instancia de la clase Partida
             System.out.println("Configuraciones guardadas en SQLite.");
         } catch (SQLException e) {
             System.out.println("Error al guardar la partida: " + e.getMessage());
@@ -214,12 +214,12 @@ public class MenuClienteJugador {
         System.out.print("Introduce el ID del jugador para ver estadísticas: ");
         int playerId = scanner.nextInt();
         try {
-            List<Partida> partidas = sqliteManager.getPartidasByPlayer(playerId);
-            if (partidas.isEmpty()) {
+            List<PlayerProgress> playerProgresses = sqliteManager.getPlayerProgressById(playerId);
+            if (playerProgresses.isEmpty()) {
                 System.out.println("No se encontraron partidas para el jugador con ID: " + playerId);
             } else {
                 System.out.println("Estadísticas y progreso del jugador:");
-                for (Partida partida : partidas) {
+                for (PlayerProgress playerProgress : playerProgresses) {
                     System.out.println(partida);
                 }
             }
@@ -238,15 +238,15 @@ public class MenuClienteJugador {
         }
 
         // SQL para insertar o actualizar en la tabla player_progress
-        String sql = "INSERT INTO player_progress (player_id, nick_name, experience, life_level, coins, session_count, last_login) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?) " +
-                "ON CONFLICT(player_id) DO UPDATE SET " +
-                "nick_name = excluded.nick_name, " +
-                "experience = excluded.experience, " +
-                "life_level = excluded.life_level, " +
-                "coins = excluded.coins, " +
-                "session_count = excluded.session_count, " +
-                "last_login = excluded.last_login";
+        String sql = "INSERT INTO player_progress (player_id, nick_name, experience, life_level, coins, session_count, last_login) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?) "
+                + "ON CONFLICT(player_id) DO UPDATE SET "
+                + "nick_name = excluded.nick_name, "
+                + "experience = excluded.experience, "
+                + "life_level = excluded.life_level, "
+                + "coins = excluded.coins, "
+                + "session_count = excluded.session_count, "
+                + "last_login = excluded.last_login";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             // Establecer los parámetros de la consulta
@@ -264,7 +264,6 @@ public class MenuClienteJugador {
             e.printStackTrace();
         }
     }
-
 
     private void menuJugar(Scanner scanner) {
         int opcion;
@@ -294,29 +293,51 @@ public class MenuClienteJugador {
 
     private void iniciarNuevaPartida(Scanner scanner) {
         System.out.println("\nIniciar Nueva Partida:");
-      
-        System.out.print("Introduce el ID del juego: ");
-        int idjuego = scanner.nextInt();
-        System.out.print("Introduce el ID del jugador: ");
-        int playerId = scanner.nextInt();
-        System.out.print("Introduce las monedas iniciales: ");
-        int monedas = scanner.nextInt();
-        System.out.print("Introduce la experiencia inicial: ");
-        int exp = scanner.nextInt();
-        System.out.print("Introduce el nivel inicial: ");
-        int nivel = scanner.nextInt();
-        System.out.print("Introduce la última conexión (formato YYYY-MM-DD): ");
-        String fechaConexion = scanner.next();
 
         try {
-            Date ultimaconexion = Date.valueOf(fechaConexion);
-            Partida nuevaPartida = new Partida( idjuego, playerId, monedas, exp, nivel, ultimaconexion);
-            sqliteManager.addPartida(nuevaPartida);
+            // Solicitar los datos de la nueva partida
+            System.out.print("Introduce el ID del jugador: ");
+            int playerId = scanner.nextInt();
+            scanner.nextLine(); // Consumir salto de línea
+
+            System.out.print("Introduce el Nickname del jugador: ");
+            String nickName = scanner.nextLine();
+
+            System.out.print("Introduce las monedas iniciales: ");
+            int coins = scanner.nextInt();
+
+            System.out.print("Introduce la experiencia inicial: ");
+            int experience = scanner.nextInt();
+
+            System.out.print("Introduce el nivel de vida inicial: ");
+            int lifeLevel = scanner.nextInt();
+
+            System.out.print("Introduce el número de sesiones inicial: ");
+            int sessionCount = scanner.nextInt();
+            scanner.nextLine(); // Consumir salto de línea
+
+            System.out.print("Introduce la última conexión (formato YYYY-MM-DD HH:MM:SS): ");
+            String lastLogin = scanner.nextLine();
+
+            // Crear objeto PlayerProgress
+            PlayerProgress nuevaPartida = new PlayerProgress(
+                    playerId,
+                    nickName,
+                    experience,
+                    lifeLevel,
+                    coins,
+                    sessionCount,
+                    lastLogin
+            );
+
+            // Guardar en la base de datos
+            sqliteManager.addPlayerProgress(nuevaPartida);
+
             System.out.println("Nueva partida iniciada con éxito.");
         } catch (SQLException e) {
             System.out.println("Error al iniciar nueva partida: " + e.getMessage());
         } catch (IllegalArgumentException e) {
-            System.out.println("Formato de fecha inválido. Por favor, usa el formato YYYY-MM-DD.");
+            System.out.println("Formato de datos inválido. Por favor, verifica la entrada.");
         }
     }
 
@@ -326,19 +347,19 @@ public class MenuClienteJugador {
         int playerId = scanner.nextInt();
 
         try {
-            List<Partida> partidas = sqliteManager.getPartidasByPlayer(playerId);
-            if (partidas.isEmpty()) {
+            List<PlayerProgress> playerProgresses = sqliteManager.getAllPlayerProgress();
+            if (playerProgresses.isEmpty()) {
                 System.out.println("No se encontraron partidas guardadas para el jugador con ID: " + playerId);
             } else {
                 System.out.println("Selecciona la partida para continuar:");
-                for (int i = 0; i < partidas.size(); i++) {
-                    System.out.println((i + 1) + ". " + partidas.get(i));
+                for (int i = 0; i < playerProgresses.size(); i++) {
+                    System.out.println((i + 1) + ". " + playerProgresses.get(i));
                 }
                 System.out.print("Elige el número de la partida que deseas continuar: ");
                 int seleccion = scanner.nextInt();
 
-                if (seleccion >= 1 && seleccion <= partidas.size()) {
-                    Partida partidaSeleccionada = partidas.get(seleccion - 1);
+                if (seleccion >= 1 && seleccion <= playerProgresses.size()) {
+                    PlayerProgress partidaSeleccionada = playerProgresses.get(seleccion - 1);
                     modificarPartidaExistente(scanner, partidaSeleccionada);
                 } else {
                     System.out.println("Selección inválida.");
@@ -349,65 +370,42 @@ public class MenuClienteJugador {
         }
     }
 
-    private void modificarPartidaExistente(Scanner scanner, Partida partida) throws SQLException {
-        System.out.println("\nModificando partida: " + partida);
+    private void modificarPartidaExistente(Scanner scanner, PlayerProgress playerProgress) throws SQLException {
+        System.out.println("\nModificando partida: " + playerProgress);
         int opcion;
         do {
             System.out.println("\n¿Qué deseas modificar en la partida?");
             System.out.println("1. Aumentar nivel");
             System.out.println("2. Incrementar experiencia");
             System.out.println("3. Agregar monedas");
-            System.out.println("4. Disminuir nivel");
-            System.out.println("5. Reducir experiencia");
-            System.out.println("6. Remover monedas");
-            System.out.println("7. Volver al Menú Jugar");
+            System.out.println("4. Volver al Menú Jugar");
             System.out.print("Selecciona una opción: ");
             opcion = scanner.nextInt();
 
             switch (opcion) {
                 case 1:
-                    System.out.print("Introduce el nuevo nivel: ");
+                    
+                    System.out.print("Tiene:"+ playerProgress.getLifeLevel()+"\nIntroduce el nuevo nivel: ");
                     int nuevoNivel = scanner.nextInt();
-                    partida.setNivel(nuevoNivel);
-                    sqliteManager.updatePartida(partida);  // Actualizar en base de datos
+                    playerProgress.setLifeLevel(nuevoNivel);
+                    sqliteManager.updatePlayerProgress(playerProgress);  // Actualizar en base de datos
                     System.out.println("Nivel actualizado.");
                     break;
                 case 2:
-                    System.out.print("Introduce la nueva experiencia: ");
+                    System.out.print("Tiene:"+ playerProgress.getExperience()+"\nIntroduce la nueva experiencia: ");
                     int nuevaExp = scanner.nextInt();
-                    partida.setExp(nuevaExp);
-                    sqliteManager.updatePartida(partida);  // Actualizar en base de datos
+                    playerProgress.setExperience(nuevaExp);
+                    sqliteManager.updatePlayerProgress(playerProgress);  // Actualizar en base de datos
                     System.out.println("Experiencia actualizada.");
                     break;
                 case 3:
-                    System.out.print("Introduce las monedas a agregar: ");
+                    System.out.print("Tiene:"+ playerProgress.getCoins() +"\n Introduce las monedas a agregar: ");
                     int monedasSumar = scanner.nextInt();
-                    partida.setMonedas(partida.getMonedas() + monedasSumar);
-                    sqliteManager.updatePartida(partida);  // Actualizar en base de datos
+                    playerProgress.setCoins( monedasSumar);
+                    sqliteManager.updatePlayerProgress(playerProgress);  // Actualizar en base de datos
                     System.out.println("Monedas actualizadas.");
                     break;
                 case 4:
-                    System.out.print("Introduce el nuevo nivel: ");
-                    int nuevoNivelDecre = scanner.nextInt();
-                    partida.setNivel(nuevoNivelDecre);
-                    sqliteManager.updatePartida(partida);  // Actualizar en base de datos
-                    System.out.println("Nivel actualizado.");
-                    break;
-                case 5:
-                    System.out.print("Introduce la nueva experiencia: ");
-                    int nuevaExpReducida = scanner.nextInt();
-                    partida.setExp(nuevaExpReducida);
-                    sqliteManager.updatePartida(partida);  // Actualizar en base de datos
-                    System.out.println("Experiencia actualizada.");
-                    break;
-                case 6:
-                    System.out.print("Introduce las monedas a remover: ");
-                    int monedasRestar = scanner.nextInt();
-                    partida.setMonedas(partida.getMonedas() - monedasRestar);
-                    sqliteManager.updatePartida(partida);  // Actualizar en base de datos
-                    System.out.println("Monedas actualizadas.");
-                    break;
-                case 7:
                     System.out.println("Volviendo al Menú Jugar...");
                     break;
                 default:
