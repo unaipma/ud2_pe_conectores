@@ -30,8 +30,7 @@ public class DAOFactory {
                 return new MysqlpartidaDAO();
             case "postgresql":
                 return new PostgrePartidaDAO();
-            case "sqlite":
-                return new SQLitePartidaDAO();
+            
             default:
                 throw new IllegalArgumentException("Tipo de base de datos no soportado: " + dbType);
         }

@@ -19,4 +19,9 @@ public class Mysqlconexion {
         String password = "lenovo";
         return DriverManager.getConnection(url, user, password);
     }
+    
+    public static Connection conexionUser(String url,String user, String password) throws SQLException {
+        
+        return DriverManager.getConnection(url,user,password);
+    }
 }

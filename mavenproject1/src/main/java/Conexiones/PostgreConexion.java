@@ -13,10 +13,23 @@ import java.sql.SQLException;
  * @author unaip
  */
 public class PostgreConexion {
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnectionUnaiCasa() throws SQLException {
         String url = "jdbc:postgresql://localhost:5432/ud2conectores";
         String user = "postgre";
         String password = "lenovo";
         return DriverManager.getConnection(url, user, password);
+    }
+    public static Connection conexionUserUnaiCasa(String url,String user, String password) throws SQLException {
+        
+        return DriverManager.getConnection(url,user,password);
+    }
+    
+    public static Connection getConnectionEugenioCasa() throws SQLException {
+        String url = "jdbc:postgresql://localhost:5432/ud2conexiones";
+        return DriverManager.getConnection(url);
+    }
+    public static Connection conexionUserEugenioCasa(String url) throws SQLException {
+        
+        return DriverManager.getConnection(url);
     }
 }

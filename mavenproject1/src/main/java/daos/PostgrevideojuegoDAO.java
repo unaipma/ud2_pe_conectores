@@ -4,7 +4,7 @@
  */
 package daos;
 
-import Conexiones.Mysqlconexion;
+import Conexiones.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +22,7 @@ public class PostgrevideojuegoDAO implements VideojuegoDAO{
     private Connection connection;
 
     public PostgrevideojuegoDAO() throws SQLException {
-        this.connection = Mysqlconexion.getConnection();
+        this.connection = PostgreConexion.getConnectionEugenioCasa();
     }
 
     @Override

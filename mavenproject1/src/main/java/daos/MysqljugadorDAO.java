@@ -64,7 +64,7 @@ public class MysqljugadorDAO implements JugadorDAO {
 
     @Override
     public void updateJugador(Jugador jugador) throws SQLException {
-        String sql = "UPDATE jugadores SET nickname = ?, experience = ?, life_level = ?, coins = ? WHERE id = ?";
+        String sql = "UPDATE jugadores SET nickname = ?, experience = ?, life_level = ?, coins = ? WHERE player_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, jugador.getNick());
             stmt.setInt(2, jugador.getExperience());
@@ -82,7 +82,7 @@ public class MysqljugadorDAO implements JugadorDAO {
         if (eliminado==null) {
             return true;
         }else{
-        String sql = "DELETE FROM jugadores WHERE id = ?";
+        String sql = "DELETE FROM jugadores WHERE player_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
@@ -93,7 +93,7 @@ public class MysqljugadorDAO implements JugadorDAO {
 
     @Override
     public Jugador getJugador(int id) throws SQLException {
-        String sql = "SELECT * FROM jugadores WHERE id = ?";
+        String sql = "SELECT * FROM jugadores WHERE player_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {

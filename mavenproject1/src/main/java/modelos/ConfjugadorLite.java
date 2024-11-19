@@ -9,9 +9,24 @@ package modelos;
  * @author unaip
  */
 public class ConfjugadorLite {
+    
     private String resolucion;
     private String idioma;
     private boolean sound_enabled;
+
+    public ConfjugadorLite(int id, int player_id, String resolucion, String idioma, boolean sound_enabled) {
+        
+        this.resolucion = resolucion;
+        this.idioma = idioma;
+        this.sound_enabled = sound_enabled;
+    }
+
+    public ConfjugadorLite() {
+    }
+    
+
+    
+    
 
     /**
      * @return the resolucion
@@ -59,6 +74,5 @@ public class ConfjugadorLite {
     public String toString() {
         return "ConfjugadorLite{" + "resolucion=" + resolucion + ", idioma=" + idioma + ", sound_enabled=" + sound_enabled + '}';
     }  
-    
-}
 
+}

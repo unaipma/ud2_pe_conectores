@@ -15,7 +15,7 @@ import modelos.Jugador;
 
 public class SQLiteJugadorDAO implements JugadorDAO {
     
-    private static final String URL = "jdbc:sqlite:path_to_your_sqlite_db_file.db"; // Cambia este path a tu base de datos SQLite
+    private static final String URL = "jdbc:sqlite:C:\\Users\\unaip\\OneDrive\\Documentos\\github\\ud2_pe_conectores\\ud2conectores.db"; // Cambia este path a tu base de datos SQLite
 
     private Connection connect() throws SQLException {
         return DriverManager.getConnection(URL);

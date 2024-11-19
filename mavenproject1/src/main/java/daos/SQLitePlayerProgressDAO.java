@@ -16,7 +16,7 @@ import modelos.PlayerProgress;
 
 public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
 
-    private static final String URL = "jdbc:sqlite:path_to_your_sqlite_db_file.db"; // Cambia este path a tu base de datos SQLite
+    private static final String URL = "jdbc:sqlite:C:\\Users\\unaip\\OneDrive\\Documentos\\github\\ud2_pe_conectores\\ud2conectores.db"; // Cambia este path a tu base de datos SQLite
 
     public SQLitePlayerProgressDAO() throws SQLException {
         connect();
@@ -28,7 +28,7 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
 
     @Override
     public void addPlayerProgress(PlayerProgress progress) throws SQLException {
-        String sql = "INSERT INTO PlayerProgress (playerId, nickName, experience, lifeLevel, coins, sessionCount, lastLogin) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO player_progress (player_id, nick_name, experience, life_level, coins, session_count, last_login) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -48,7 +48,7 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
     @Override
     public List<PlayerProgress> getPlayerProgressById(int playerId) throws SQLException {
         List<PlayerProgress> progressList = new ArrayList<>();
-        String sql = "SELECT * FROM PlayerProgress WHERE playerId = ?";
+        String sql = "SELECT * FROM player_progress WHERE player_id = ?";
 
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -58,13 +58,13 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
 
             while (rs.next()) {
                 PlayerProgress progress = new PlayerProgress(
-                        rs.getInt("playerId"),
-                        rs.getString("nickName"),
+                        rs.getInt("player_id"),
+                        rs.getString("nick_name"),
                         rs.getInt("experience"),
-                        rs.getInt("lifeLevel"),
+                        rs.getInt("life_level"),
                         rs.getInt("coins"),
-                        rs.getInt("sessionCount"),
-                        rs.getString("lastLogin")
+                        rs.getInt("session_count"),
+                        rs.getString("last_login")
                 );
                 progressList.add(progress);
             }
@@ -74,7 +74,7 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
 
     @Override
     public void updatePlayerProgress(PlayerProgress progress) throws SQLException {
-        String sql = "UPDATE PlayerProgress SET nickName = ?, experience = ?, lifeLevel = ?, coins = ?, sessionCount = ?, lastLogin = ? WHERE playerId = ?";
+        String sql = "UPDATE player_progress SET nick_name = ?, experience = ?, life_level = ?, coins = ?, session_count = ?, last_login = ? WHERE player_id = ?";
 
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -94,7 +94,7 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
     @Override
     public List<PlayerProgress> getAllPlayerProgress() throws SQLException {
         List<PlayerProgress> progressList = new ArrayList<>();
-        String sql = "SELECT * FROM PlayerProgress";
+        String sql = "SELECT * FROM player_progress";
 
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -102,13 +102,13 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
 
             while (rs.next()) {
                 PlayerProgress progress = new PlayerProgress(
-                        rs.getInt("playerId"),
-                        rs.getString("nickName"),
+                        rs.getInt("player_id"),
+                        rs.getString("nick_name"),
                         rs.getInt("experience"),
-                        rs.getInt("lifeLevel"),
+                        rs.getInt("life_level"),
                         rs.getInt("coins"),
-                        rs.getInt("sessionCount"),
-                        rs.getString("lastLogin")
+                        rs.getInt("session_count"),
+                        rs.getString("last_login")
                 );
                 progressList.add(progress);
             }

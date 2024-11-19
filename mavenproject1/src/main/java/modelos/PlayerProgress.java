@@ -48,12 +48,18 @@ public class PlayerProgress {
         this.coins = coins;
     }
 
+    
+
     public void setSessionCount(int sessionCount) {
         this.sessionCount = sessionCount;
     }
 
     public void setLastLogin(String lastLogin) {
         this.lastLogin = lastLogin;
+    }
+    @Override
+    public String toString() {
+        return "PlayerProgress{" + "playerId=" + playerId + ", nickName=" + nickName + ", experience=" + experience + ", lifeLevel=" + lifeLevel + ", coins=" + coins + ", sessionCount=" + sessionCount + ", lastLogin=" + lastLogin + '}';
     }
     
     

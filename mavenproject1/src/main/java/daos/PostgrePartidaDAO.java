@@ -5,6 +5,7 @@
 package daos;
 
 import Conexiones.Mysqlconexion;
+import Conexiones.PostgreConexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ public class PostgrePartidaDAO implements PartidaDAO{
     private Connection connection;
 
     public PostgrePartidaDAO() throws SQLException {
-        this.connection = Mysqlconexion.getConnection();
+        this.connection = PostgreConexion.getConnectionEugenioCasa();
     }
 
     @Override
