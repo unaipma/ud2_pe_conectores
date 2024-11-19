@@ -15,7 +15,7 @@ import modelos.Jugador;
 public interface JugadorDAO {
     void addJugador(Jugador jugador) throws SQLException;
     void updateJugador(Jugador jugador) throws SQLException;
-    boolean deleteJugador(int id) throws SQLException;
-    Jugador getJugador(int id) throws SQLException;
+    boolean deleteJugador(String NickName) throws SQLException;
+    Jugador getJugador(String NickName) throws SQLException;
     List<Jugador> getTop10Jugadores() throws SQLException;
 }

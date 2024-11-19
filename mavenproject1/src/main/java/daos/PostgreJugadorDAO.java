@@ -24,7 +24,7 @@ public class PostgreJugadorDAO implements JugadorDAO {
     private Connection connection;
 
     public PostgreJugadorDAO() throws SQLException {
-        this.connection = PostgreConexion.getConnectionEugenioCasa();
+        this.connection = PostgreConexion.getConnectionNube();
     }
 
     @Override
@@ -84,15 +84,15 @@ public class PostgreJugadorDAO implements JugadorDAO {
     }
 
     @Override
-    public boolean deleteJugador(int id) throws SQLException {
+    public boolean deleteJugador(String NickName) throws SQLException {
 
-        Jugador eliminado = getJugador(id);
+        Jugador eliminado = getJugador(NickName);
         if (eliminado == null) {
             return true;
         } else {
-            String sql = "DELETE FROM jugadores WHERE id = ?";
+            String sql = "DELETE FROM jugadores WHERE nickname = ?";
             try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-                stmt.setInt(1, id);
+                stmt.setString(1, NickName);
                 stmt.executeUpdate();
                 return false;
             }
@@ -101,10 +101,10 @@ public class PostgreJugadorDAO implements JugadorDAO {
     }
 
     @Override
-    public Jugador getJugador(int id) throws SQLException {
-        String sql = "SELECT * FROM jugadores WHERE id = ?";
+    public Jugador getJugador(String NickName) throws SQLException {
+        String sql = "SELECT * FROM jugadores WHERE nickname = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
+            stmt.setString(1, NickName);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Jugador(

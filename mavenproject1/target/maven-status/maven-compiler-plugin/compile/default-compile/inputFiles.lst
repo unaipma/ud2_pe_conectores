@@ -1,31 +1,35 @@
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\JugadorDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\Conexiones\Mysqlconexion.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\SQLiteConfiguracion.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\SQLitePlayerProgressDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\modelos\Videojuego.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\DAOFactory.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\PostgrevideojuegoDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\MenuBack\VideojuegoMenu.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\Conexiones\Sqlliteconexion.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\Conexiones\ConexionSelector.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\PostgrePartidaDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\Conexiones\PostgreConexion.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\modelos\Partida.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\MenuBack\PartidaMenu.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\PostgreJugadorDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\MysqlpartidaDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\modelos\ConfjugadorLite.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\SQLiteVideojuegoDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\MenuBack\MenuBackend.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\MenuBack\JugadorMenu.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\modelos\Jugador.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\VideojuegoDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\modelos\PlayerProgress.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\auxiliar\Json.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\PlayerProgressDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\MysqljugadorDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\MysqlvideojuegoDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\menuFront\MenuClienteJugador.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\PartidaDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\daos\SQLiteJugadorDAO.java
-C:\Users\unaip\OneDrive\Documentos\github\ud2_pe_conectores\mavenproject1\src\main\java\auxiliar\JuegoConf.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\PostgrevideojuegoDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\modelos\PlayerProgress.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\PartidaDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\menuFront\MenuClienteJugador2.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\auxiliar\JuegoConf.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\menuFront\ConfiguracionServicio.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\modelos\Partida.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\MenuBack\JugadorMenu.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\DAOFactory.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\SQLiteConfiguracion.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\menuFront\JuegoServicio.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\Conexiones\Mysqlconexion.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\Conexiones\ConexionSelector.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\Conexiones\Sqlliteconexion.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\MenuBack\VideojuegoMenu.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\SQLiteVideojuegoDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\PlayerProgressDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\MysqlpartidaDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\modelos\ConfjugadorLite.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\MysqljugadorDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\PostgreJugadorDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\menuFront\GestionPartidasServicio.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\menuFront\MenuClienteJugador.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\auxiliar\Json.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\SQLiteJugadorDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\JugadorDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\Conexiones\PostgreConexion.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\SQLitePlayerProgressDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\PostgrePartidaDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\modelos\Jugador.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\MenuBack\PartidaMenu.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\VideojuegoDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\daos\MysqlvideojuegoDAO.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\modelos\Videojuego.java
+G:\MULWEB2\Acceso a datos\Tema02\ud2_pe_conectores\mavenproject1\src\main\java\MenuBack\MenuBackend.java

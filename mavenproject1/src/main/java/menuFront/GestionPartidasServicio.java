@@ -22,12 +22,19 @@ import modelos.Partida;
 
 public class GestionPartidasServicio {
 
-    private SQLiteConfiguracion sqliteconf = new SQLiteConfiguracion();
-    private SQLitePlayerProgressDAO sqliteManager;
+    private final SQLiteConfiguracion sqliteconf;
+    private final SQLitePlayerProgressDAO sqliteManager;
     private ConfjugadorLite conf;
     private PartidaDAO partidaDAO;
     private Jugador jugador;
-        private Partida partida;
+    private Partida partida;
+
+    public GestionPartidasServicio(Jugador jugador) throws SQLException {
+        this.sqliteconf = new SQLiteConfiguracion();
+        this.sqliteManager = new SQLitePlayerProgressDAO();
+        this.conf =  sqliteconf.getConfig(jugador );
+        this.jugador = jugador;
+    }
 
     public void mostrarMenuGestionPartidas(Scanner scanner) throws SQLException {
         int opcion;
@@ -64,12 +71,15 @@ public class GestionPartidasServicio {
     }
 
     private void guardarConfiguracionesSQLite() {
-        ConfjugadorLite conf = new ConfjugadorLite();
         Scanner scanner = new Scanner(System.in);
+
         System.out.println("Dime la resolucion");
+        scanner.nextLine();
         conf.setResolucion(scanner.nextLine());
+
         System.out.println("Dime el lenguage");
         conf.setIdioma(scanner.nextLine());
+
         System.out.println("1.Sonido activado\n2.Sonido desactivado");
 
         switch (scanner.nextInt()) {
@@ -82,8 +92,13 @@ public class GestionPartidasServicio {
                 conf.setSound_enabled(true);
         }
         try {
-            sqliteconf.saveConfig(conf, jugador);
-            System.out.println("Configuraciones guardadas en SQLite.");
+            if (sqliteconf.getConfig(jugador)==null) {
+                 sqliteconf.saveConfig(conf, jugador);
+
+            }else{
+                sqliteconf.updateConfig(conf, jugador);
+            }
+                       System.out.println("Configuraciones guardadas en SQLite.");
         } catch (SQLException e) {
             System.out.println("Error al guardar la partida: " + e.getMessage());
         }
@@ -100,12 +115,11 @@ public class GestionPartidasServicio {
     }
 
     private void mostrarEstadisticasJugador(Scanner scanner) {
-        System.out.print("Introduce el ID del jugador para ver estadísticas: ");
-        int playerId = scanner.nextInt();
+        
         try {
-            List<PlayerProgress> playerProgresses = sqliteManager.getPlayerProgressById(playerId);
+            List<PlayerProgress> playerProgresses = sqliteManager.getPlayerProgressById(jugador.getId());
             if (playerProgresses.isEmpty()) {
-                System.out.println("No se encontraron partidas para el jugador con ID: " + playerId);
+                System.out.println("No se encontraron partidas para el jugador: " + jugador.getNick());
             } else {
                 System.out.println("Estadísticas y progreso del jugador:");
                 for (PlayerProgress playerProgress : playerProgresses) {

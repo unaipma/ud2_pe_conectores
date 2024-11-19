@@ -74,7 +74,7 @@ public class MenuClienteJugador {
                 break;
         }
         jugDAO= DAOFactory.getJugadorDAO(tipoBD);
-        jugador= jugDAO.getJugador(1);
+        jugador= jugDAO.getJugador("");
         sqliteManager = new SQLitePlayerProgressDAO();
         conf = sqliteconf.getConfig(jugador);
         
@@ -283,12 +283,11 @@ public class MenuClienteJugador {
     }
 
     private void mostrarEstadisticasJugador(Scanner scanner) {
-        System.out.print("Introduce el ID del jugador para ver estadísticas: ");
-        int playerId = scanner.nextInt();
+        
         try {
-            List<PlayerProgress> playerProgresses = sqliteManager.getPlayerProgressById(playerId);
+            List<PlayerProgress> playerProgresses = sqliteManager.getPlayerProgressById(jugador.getId());
             if (playerProgresses.isEmpty()) {
-                System.out.println("No se encontraron partidas para el jugador con ID: " + playerId);
+                System.out.println("No se encontraron partidas para el jugador : " + jugador.getNick());
             } else {
                 System.out.println("Estadísticas y progreso del jugador:");
                 for (PlayerProgress playerProgress : playerProgresses) {
@@ -308,6 +307,7 @@ public class MenuClienteJugador {
        
 
         System.out.print("Nueva resolucion (actual: " + confi.getResolucion() + "): ");
+        scanner.nextLine();
         confi.setResolucion(scanner.nextLine());
 
         System.out.print("Nuevo idioma (actual: " + confi.getIdioma() + "): ");
@@ -410,7 +410,7 @@ public class MenuClienteJugador {
         int playerId = scanner.nextInt();
 
         try {
-            List<PlayerProgress> playerProgresses = sqliteManager.getAllPlayerProgress();
+            List<PlayerProgress> playerProgresses = sqliteManager.getAllPlayerProgress(jugador);
             if (playerProgresses.isEmpty()) {
                 System.out.println("No se encontraron partidas guardadas para el jugador con ID: " + playerId);
             } else {

@@ -20,7 +20,7 @@ public class ConexionSelector {
                 conexion = Mysqlconexion.getConnection();
                 System.out.println("Conectado a MySQL exitosamente");
             } else if (tipoBaseDatos.equalsIgnoreCase("PostgreSQL")) {
-                conexion = PostgreConexion.getConnectionEugenioCasa();
+                conexion = PostgreConexion.getConnectionNube();
                 System.out.println("Conectado a PostgreSQL exitosamente");
             } else {
                 System.err.println("Tipo de base de datos no soportado: " + tipoBaseDatos);

@@ -11,10 +11,10 @@ CREATE TABLE IF NOT EXISTS player_settings (
 CREATE TABLE IF NOT EXISTS player_progress (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     player_id INTEGER UNIQUE NOT NULL,
-    nick_name TEXT,
+    nick_name TEXT UNIQUE NOT NULL,
     experience INTEGER DEFAULT 0,
     life_level INTEGER DEFAULT 100,
     coins INTEGER DEFAULT 0,
     session_count INTEGER DEFAULT 0,
-    last_login TEXT  -- Fecha de la última conexión (ej., formato ISO 8601 "YYYY-MM-DD HH:MM:SS")
+    last_login DATE -- Fecha de la última conexión (ej., formato ISO 8601 "YYYY-MM-DD HH:MM:SS")
 );

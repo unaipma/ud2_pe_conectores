@@ -23,10 +23,6 @@ public class ConfjugadorLite {
 
     public ConfjugadorLite() {
     }
-    
-
-    
-    
 
     /**
      * @return the resolucion

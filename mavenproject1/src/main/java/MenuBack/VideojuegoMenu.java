@@ -59,10 +59,10 @@ public class VideojuegoMenu {
         scanner.nextLine(); // Limpiar el buffer
         System.out.print("Ingrese el título del videojuego: ");
         String title = scanner.nextLine();
-        System.out.print("Ingrese la cantidad de jugadores: ");
-        int playerCount = scanner.nextInt();
-        System.out.print("Ingrese el total de sesiones: ");
-        int totalSessions = scanner.nextInt();
+       
+        int playerCount = 0;
+       
+        int totalSessions = 0;
         Date lastSession = Date.valueOf(LocalDate.now());// Inicializa con la fecha actual
         
         Videojuego videojuego = new Videojuego(gameId, isbn, title, playerCount, totalSessions, lastSession);

@@ -23,7 +23,12 @@ public class JuegoConf {
         this.user = user;
         this.pass = pass;
         this.nick_name = nick_name;
+        
     }
+
+    public JuegoConf() {
+    }
+    
 
     // Getters y Setters
     public String getHost() {

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package daos;
 
 /**
@@ -9,21 +6,23 @@ package daos;
  * @author eugeniolorentecristobal
  */
 
+import Conexiones.Sqlliteconexion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import modelos.Jugador;
 import modelos.PlayerProgress;
 
 public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
 
-    private static final String URL = "jdbc:sqlite:C:\\Users\\unaip\\OneDrive\\Documentos\\github\\ud2_pe_conectores\\ud2conectores.db"; // Cambia este path a tu base de datos SQLite
+    private Sqlliteconexion sqlliteconexion;
 
     public SQLitePlayerProgressDAO() throws SQLException {
         connect();
     }
 
     private Connection connect() throws SQLException {
-        return DriverManager.getConnection(URL);
+        return sqlliteconexion.getConnection();
     }
 
     @Override
@@ -40,6 +39,24 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
             stmt.setInt(5, progress.getCoins());
             stmt.setInt(6, progress.getSessionCount());
             stmt.setString(7, progress.getLastLogin()); // Guardar como texto en formato "YYYY-MM-DD HH:MM:SS"
+
+            stmt.executeUpdate();
+        }
+    }
+    
+    public void addPlayerProgress(Jugador jugador) throws SQLException {
+        String sql = "INSERT INTO player_progress (player_id, nick_name, experience, life_level, coins, session_count, last_login) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, jugador.getId());
+            stmt.setString(2, jugador.getNick());
+            stmt.setInt(3, jugador.getExperience());
+            stmt.setInt(4, jugador.getLifeLevel());
+            stmt.setInt(5, jugador.getCoins());
+            stmt.setInt(6, jugador.getCoins());
+            stmt.setDate(7, jugador.getLast_login()); // Guardar como texto en formato "YYYY-MM-DD HH:MM:SS"
 
             stmt.executeUpdate();
         }
@@ -92,9 +109,9 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
     }
 
     @Override
-    public List<PlayerProgress> getAllPlayerProgress() throws SQLException {
+    public List<PlayerProgress> getAllPlayerProgress(Jugador jugador) throws SQLException {
         List<PlayerProgress> progressList = new ArrayList<>();
-        String sql = "SELECT * FROM player_progress";
+        String sql = "SELECT * FROM player_progress WHERE nick_name =\"" + jugador.getNick()+ "\"";
 
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(sql);

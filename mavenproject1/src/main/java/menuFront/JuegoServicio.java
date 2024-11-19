@@ -21,8 +21,9 @@ public class JuegoServicio {
     private Jugador jugador;
     private SQLitePlayerProgressDAO sqliteManager;
 
-    public JuegoServicio(Jugador jugador) {
+    public JuegoServicio(Jugador jugador) throws SQLException {
         this.jugador = jugador;
+        this. sqliteManager = new SQLitePlayerProgressDAO();
     }
 
     public void menuJugar(Scanner scanner) {
@@ -52,6 +53,9 @@ public class JuegoServicio {
     }
 
     private void iniciarNuevaPartida(Scanner scanner) {
+        
+        
+        
         System.out.println("\nIniciar Nueva Partida:");
 
         try {
@@ -65,10 +69,7 @@ public class JuegoServicio {
             System.out.print("Introduce el nivel de vida inicial: ");
             int lifeLevel = scanner.nextInt();
 
-            
-         
-
-             String lastLogin = (LocalDate.now().toString());
+            String lastLogin = (LocalDate.now().toString());
 
             // Crear objeto PlayerProgress
             PlayerProgress nuevaPartida = new PlayerProgress(
@@ -81,7 +82,7 @@ public class JuegoServicio {
                     lastLogin
             );
 
-            // Guardar en la base de datos
+           
             sqliteManager.addPlayerProgress(nuevaPartida);
 
             System.out.println("Nueva partida iniciada con éxito.");
@@ -93,14 +94,13 @@ public class JuegoServicio {
     }
 
     private void continuarPartidaExistente(Scanner scanner) {
-        System.out.println("\nSeleccionar Partida Existente:");
-        System.out.print("Introduce el ID del jugador: ");
-        int playerId = scanner.nextInt();
+       
+        int playerId = jugador.getId();
 
         try {
-            List<PlayerProgress> playerProgresses = sqliteManager.getAllPlayerProgress();
+            List<PlayerProgress> playerProgresses = sqliteManager.getAllPlayerProgress(jugador);
             if (playerProgresses.isEmpty()) {
-                System.out.println("No se encontraron partidas guardadas para el jugador con ID: " + playerId);
+                System.out.println("No se encontraron partidas guardadas para el jugador : " + jugador.getNick());
             } else {
                 System.out.println("Selecciona la partida para continuar:");
                 for (int i = 0; i < playerProgresses.size(); i++) {

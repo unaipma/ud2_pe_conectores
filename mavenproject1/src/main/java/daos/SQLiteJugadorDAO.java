@@ -56,26 +56,26 @@ public class SQLiteJugadorDAO implements JugadorDAO {
     }
 
     @Override
-    public boolean deleteJugador(int id) throws SQLException {
-        String sql = "DELETE FROM Jugador WHERE id = ?";
+    public boolean deleteJugador(String NickName) throws SQLException {
+        String sql = "DELETE FROM Jugador WHERE nick_name = ?";
         
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
              
-            stmt.setInt(1, id);
+            stmt.setString(1, NickName);
             stmt.executeUpdate();
         }
         return true;
     }
 
     @Override
-    public Jugador getJugador(int id) throws SQLException {
-        String sql = "SELECT * FROM Jugador WHERE id = ?";
+    public Jugador getJugador(String NickName) throws SQLException {
+        String sql = "SELECT * FROM Jugador WHERE nick_name = ?";
         
         try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
              
-            stmt.setInt(1, id);
+            stmt.setString(1, NickName);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {

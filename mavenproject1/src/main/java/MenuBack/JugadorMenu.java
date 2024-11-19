@@ -83,12 +83,11 @@ public class JugadorMenu {
 
     private void actualizarJugador(Scanner scanner) {
         System.out.println("\n--- Actualizar Jugador ---");
-        System.out.print("ID del jugador a actualizar: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();  // Limpiar buffer
+        System.out.print("NickName del jugador a actualizar: ");
+        String NickName = scanner.nextLine();
 
         try {
-            Jugador jugadorExistente = jugadorDAO.getJugador(id);
+            Jugador jugadorExistente = jugadorDAO.getJugador(NickName);
             if (jugadorExistente != null) {
                 System.out.print("Nuevo nickname (actual: " + jugadorExistente.getNick() + "): ");
                 String nuevoNick = scanner.nextLine();
@@ -117,10 +116,10 @@ public class JugadorMenu {
     private void eliminarJugador(Scanner scanner) {
         System.out.println("\n--- Eliminar Jugador ---");
         System.out.print("ID del jugador a eliminar: ");
-        int id = scanner.nextInt();
+        String NickName = scanner.nextLine();
 
         try {
-            if (jugadorDAO.deleteJugador(id)) {
+            if (jugadorDAO.deleteJugador(NickName)) {
                  System.out.println("Jugador eliminado exitosamente.");
             }else{
                 System.out.println("El jugador no existe, no se ha podido eliminar");
@@ -135,10 +134,10 @@ public class JugadorMenu {
     private void mostrarJugador(Scanner scanner) {
         System.out.println("\n--- Mostrar Jugador ---");
         System.out.print("ID del jugador a mostrar: ");
-        int id = scanner.nextInt();
+        String NickName = scanner.nextLine();
 
         try {
-            Jugador jugador = jugadorDAO.getJugador(id);
+            Jugador jugador = jugadorDAO.getJugador(NickName);
             if (jugador != null) {
                 System.out.println(jugador);
             } else {

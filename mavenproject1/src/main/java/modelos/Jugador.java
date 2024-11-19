@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import auxiliar.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -47,6 +48,12 @@ public class Jugador implements Serializable {
      * atributos.
      */
     public Jugador() {
+//        Json json = new Json();
+//        JuegoConf juegoConf;
+//        juegoConf  = json.loadConfig();
+//        
+//        this.nick_name = juegoConf.getNick_name();
+        
     }
 
     /**

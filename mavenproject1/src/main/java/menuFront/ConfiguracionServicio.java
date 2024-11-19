@@ -95,7 +95,7 @@ public class ConfiguracionServicio {
                 Mysqlconexion.conexionUser("jdbc:mysql://"+host+":"+puerto+"/ud2conectores", usuario, contraseña);
             }else{
                 //PostgreConexion.conexionUser("jdbc:postgresql://"+host+":"+puerto+"/ud2conectores", usuario, contraseña);
-                PostgreConexion.conexionUserEugenioCasa("jdbc:postgresql://localhost:5432/ud2conexiones");
+                PostgreConexion.getConnectionNube();
             }
             
             

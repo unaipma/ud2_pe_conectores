@@ -13,6 +13,13 @@ import java.sql.SQLException;
  * @author unaip
  */
 public class PostgreConexion {
+    
+    public static Connection getConnectionNube() throws SQLException {
+        String url = "jdbc:postgresql://ep-spring-rain-a24pgyn5.eu-central-1.aws.neon.tech/ud2conectores?user=ud2conectores_owner&password=7gmIlvAUcB4M&sslmode=require";
+        
+        return DriverManager.getConnection(url);
+    }
+    
     public static Connection getConnectionUnaiCasa() throws SQLException {
         String url = "jdbc:postgresql://localhost:5432/ud2conectores";
         String user = "postgre";
