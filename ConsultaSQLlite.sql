@@ -16,5 +16,6 @@ CREATE TABLE IF NOT EXISTS player_progress (
     life_level INTEGER DEFAULT 100,
     coins INTEGER DEFAULT 0,
     session_count INTEGER DEFAULT 0,
-    last_login DATE -- Fecha de la última conexión (ej., formato ISO 8601 "YYYY-MM-DD HH:MM:SS")
+    last_login DATE, -- Fecha de la última conexión (ej., formato ISO 8601 "YYYY-MM-DD HH:MM:SS")
+    partidaId INTEGER
 );
