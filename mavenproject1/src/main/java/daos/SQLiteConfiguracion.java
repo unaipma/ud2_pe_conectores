@@ -14,9 +14,9 @@ import modelos.Jugador;
  * @author eugeniolorentecristobal
  */
 public class SQLiteConfiguracion {
-    
+
     private Sqlliteconexion sqlliteconexion;
-    
+
     private Connection connect() throws SQLException {
         return sqlliteconexion.getConnection();
     }
@@ -39,7 +39,7 @@ public class SQLiteConfiguracion {
 
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-           
+
             stmt.setInt(1, jugador.getId());
             stmt.setBoolean(2, config.isSound_enabled());
             stmt.setString(3, config.getResolucion());
@@ -70,5 +70,5 @@ public class SQLiteConfiguracion {
 
     }
 
-    
+
 }

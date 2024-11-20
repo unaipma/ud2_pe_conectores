@@ -103,7 +103,16 @@ public class Videojuego implements Serializable {
     public void setLast_session(Date last_session) {
         this.last_session = last_session;
     }
-
+    /**
+     * Constructor para crear un nuevo objeto {@link Videojuego} con todos los atributos.
+     *
+     * @param game_id El identificador único del videojuego.
+     * @param isbn El ISBN del videojuego.
+     * @param title El título del videojuego.
+     * @param player_count El número de jugadores permitidos.
+     * @param total_sessions El total de sesiones jugadas.
+     * @param last_session La fecha de la última sesión.
+     */
     public Videojuego(int game_id, int isbn, String title, int player_count, int total_sessions, Date last_session) {
         this.game_id = game_id;
         this.isbn = isbn;
@@ -112,7 +121,11 @@ public class Videojuego implements Serializable {
         this.total_sessions = total_sessions;
         this.last_session = last_session;
     }
-
+    /**
+     * Devuelve una representación en formato de cadena de texto del videojuego.
+     *
+     * @return La representación del videojuego.
+     */
     @Override
     public String toString() {
         return "Videojuego{" + "game_id=" + game_id + ", isbn=" + isbn + ", title=" + title + ", player_count=" + player_count + ", total_sessions=" + total_sessions + ", last_session=" + last_session + '}';

@@ -39,7 +39,7 @@ public class Jugador implements Serializable {
         this.experience = experience;
         this.life_level = lifeLevel;
         this.coins = coins;
-        this.session_count = 0;
+        this.session_count =  this.session_count + 1;
         this.last_login = sesion();
     }
 
@@ -48,12 +48,6 @@ public class Jugador implements Serializable {
      * atributos.
      */
     public Jugador() {
-//        Json json = new Json();
-//        JuegoConf juegoConf;
-//        juegoConf  = json.loadConfig();
-//        
-//        this.nick_name = juegoConf.getNick_name();
-        
     }
 
     /**

@@ -9,13 +9,19 @@ package modelos;
  * @author unaip
  */
 public class ConfjugadorLite {
-    
+
     private String resolucion;
     private String idioma;
     private boolean sound_enabled;
-
+    /**
+     * Constructor que inicializa los valores de configuración del jugador.
+     *
+     * @param resolucion La resolución de pantalla seleccionada por el jugador.
+     * @param idioma El idioma seleccionado por el jugador.
+     * @param sound_enabled Indica si el sonido está habilitado o no.
+     */
     public ConfjugadorLite(int id, int player_id, String resolucion, String idioma, boolean sound_enabled) {
-        
+
         this.resolucion = resolucion;
         this.idioma = idioma;
         this.sound_enabled = sound_enabled;
@@ -69,6 +75,6 @@ public class ConfjugadorLite {
     @Override
     public String toString() {
         return "ConfjugadorLite{" + "resolucion=" + resolucion + ", idioma=" + idioma + ", sound_enabled=" + sound_enabled + '}';
-    }  
+    }
 
 }

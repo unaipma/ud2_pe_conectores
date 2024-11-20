@@ -20,27 +20,27 @@ import modelos.Jugador;
  * @author unaip
  */
 public class PostgreJugadorDAO implements JugadorDAO {
-
     private Connection connection;
 
+    /**
+     * Constructor que inicializa la conexión a la base de datos PostgreSQL.
+     *
+     * @throws SQLException Si ocurre un error al obtener la conexión.
+     */
     public PostgreJugadorDAO() throws SQLException {
         this.connection = PostgreConexion.getConnectionNube();
     }
 
+    /**
+     * Agrega un nuevo jugador a la base de datos.
+     *
+     * @param jugador El jugador que se va a agregar a la base de datos.
+     * @throws SQLException Si ocurre un error al agregar el jugador.
+     */
     @Override
     public void addJugador(Jugador jugador) throws SQLException {
-        //String sql = "INSERT INTO jugadores (player_id,nickname, experience, life_level, coins, session_count, last_login) VALUES (?,?, ?, ?, ?, ?, ?)";
         String sql = "INSERT INTO jugadores (nickname, experience, life_level, coins, session_count, last_login) VALUES (?, ?, ?, ?, ?, ?)";
-
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-//            stmt.setInt(1,jugador.getId());
-//            stmt.setString(2, jugador.getNick());
-//            stmt.setInt(3, jugador.getExperience());
-//            stmt.setInt(4, jugador.getLifeLevel());
-//            stmt.setInt(5, jugador.getCoins());
-//            stmt.setInt(6, jugador.getSession_count());
-//            stmt.setDate(7, jugador.getLast_login());
-//            stmt.executeUpdate();
             stmt.setString(1, jugador.getNick());
             stmt.setInt(2, jugador.getExperience());
             stmt.setInt(3, jugador.getLifeLevel());
@@ -48,10 +48,15 @@ public class PostgreJugadorDAO implements JugadorDAO {
             stmt.setInt(5, jugador.getSession_count());
             stmt.setDate(6, jugador.getLast_login());
             stmt.executeUpdate();
-
         }
     }
 
+    /**
+     * Obtiene los 10 jugadores con más experiencia.
+     *
+     * @return Una lista de los 10 jugadores con mayor experiencia.
+     * @throws SQLException Si ocurre un error al obtener los jugadores.
+     */
     @Override
     public List<Jugador> getTop10Jugadores() throws SQLException {
         String sql = "SELECT * FROM jugadores ORDER BY experience DESC LIMIT 10";
@@ -70,6 +75,12 @@ public class PostgreJugadorDAO implements JugadorDAO {
         return jugadores;
     }
 
+    /**
+     * Actualiza los datos de un jugador en la base de datos.
+     *
+     * @param jugador El jugador con los datos actualizados.
+     * @throws SQLException Si ocurre un error al actualizar el jugador.
+     */
     @Override
     public void updateJugador(Jugador jugador) throws SQLException {
         String sql = "UPDATE jugadores SET nickname = ?, experience = ?, life_level = ?, coins = ? WHERE id = ?";
@@ -83,9 +94,15 @@ public class PostgreJugadorDAO implements JugadorDAO {
         }
     }
 
+    /**
+     * Elimina un jugador de la base de datos utilizando su nombre de usuario (nickname).
+     *
+     * @param NickName El nombre de usuario del jugador que se va a eliminar.
+     * @return true si el jugador no fue encontrado, false si fue eliminado correctamente.
+     * @throws SQLException Si ocurre un error al eliminar el jugador.
+     */
     @Override
     public boolean deleteJugador(String NickName) throws SQLException {
-
         Jugador eliminado = getJugador(NickName);
         if (eliminado == null) {
             return true;
@@ -97,9 +114,15 @@ public class PostgreJugadorDAO implements JugadorDAO {
                 return false;
             }
         }
-
     }
 
+    /**
+     * Obtiene un jugador de la base de datos utilizando su nombre de usuario (nickname).
+     *
+     * @param NickName El nombre de usuario del jugador a obtener.
+     * @return El jugador correspondiente al nombre de usuario, o null si no existe.
+     * @throws SQLException Si ocurre un error al obtener el jugador.
+     */
     @Override
     public Jugador getJugador(String NickName) throws SQLException {
         String sql = "SELECT * FROM jugadores WHERE nickname = ?";

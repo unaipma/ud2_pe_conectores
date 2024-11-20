@@ -1,6 +1,7 @@
 package MenuBack;
 
 import Conexiones.ConexionSelector;
+import auxiliar.Libreriaaux;
 import daos.*;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,14 +13,23 @@ import java.util.Scanner;
  */
 public class MenuBackend {
 
+    /**
+     * Método principal que ejecuta el menú backend.
+     * Solicita al usuario que seleccione la base de datos y proporciona opciones
+     * para gestionar videojuegos, jugadores y partidas.
+     *
+     * @param args argumentos de la línea de comandos (no se utilizan en este programa).
+     * @throws SQLException si ocurre un error al interactuar con la base de datos.
+     */
     public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         String tipoBD;
 
         System.out.println("Bienvenido a la Aplicación de Backend");
+
         do {
             System.out.println("Indica qué base de datos quieres utilizar: 1. MySQL 2. PostgreSQL");
-            int n = scanner.nextInt();
+            int n = Libreriaaux.compruebaNumero();
 
             switch (n) {
                 case 1:
@@ -34,10 +44,8 @@ public class MenuBackend {
                     break;
             }
 
-            // Intentar obtener la conexión
             Connection conexionSelector = ConexionSelector.obtenerConexion(tipoBD);
 
-            // Si la conexión es válida (no es null), salir del bucle
             if (conexionSelector != null) {
                 System.out.println("Conexión establecida exitosamente.");
                 break;
@@ -58,36 +66,29 @@ public class MenuBackend {
 
             switch (choice) {
                 case 1:
-                        // Implementar la lógica de alta, baja y modificación de videojuegos
-                        try {
-                    VideojuegoMenu videojuegoMenu = new VideojuegoMenu(factory.getVideojuegoDAO(tipoBD));
-                    videojuegoMenu.mostrarMenuGestionVideoJuegos();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                //HECHO
-                break;
+                    try {
+                        VideojuegoMenu videojuegoMenu = new VideojuegoMenu(factory.getVideojuegoDAO(tipoBD));
+                        videojuegoMenu.mostrarMenuGestionVideoJuegos();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
                 case 2:
-                        // Implementar lógica para la gestión de jugadores
-                        try {
-                    JugadorMenu jugadorMenu = new JugadorMenu(factory.getJugadorDAO(tipoBD));
-                    jugadorMenu.mostrarMenu();
-
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                //HECHO
-                break;
+                    try {
+                        JugadorMenu jugadorMenu = new JugadorMenu(factory.getJugadorDAO(tipoBD));
+                        jugadorMenu.mostrarMenu();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
                 case 3:
-                        // Implementar lógica para gestionar el progreso de los jugadores
-                        try {
-                    PartidaMenu partidaMenu = new PartidaMenu(factory.getPartidaDAO(tipoBD));
-                    partidaMenu.mostrarMenuGestionarPartidas();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                //HECHO
-                break;
+                    try {
+                        PartidaMenu partidaMenu = new PartidaMenu(factory.getPartidaDAO(tipoBD));
+                        partidaMenu.mostrarMenuGestionarPartidas();
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
                 case 0:
                     System.exit(0);
                     break;
@@ -96,6 +97,5 @@ public class MenuBackend {
                     break;
             }
         }
-
     }
 }

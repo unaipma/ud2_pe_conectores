@@ -1,6 +1,8 @@
 
 package modelos;
 
+import daos.VideojuegoDAO;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -20,7 +22,16 @@ public class Partida implements Serializable {
 
     public Partida() {
     }
-
+    /**
+     * Constructor de la clase {@link Partida} con parámetros para inicializar todos los atributos.
+     *
+     * @param idjuego El identificador del juego.
+     * @param idjugador El identificador del jugador.
+     * @param monedas La cantidad de monedas del jugador en la partida.
+     * @param exp La experiencia del jugador en la partida.
+     * @param nivel El nivel del jugador en la partida.
+     * @param ultimaconexion La fecha de la última conexión del jugador.
+     */
     public Partida( int idjuego, int idjugador, int monedas, int exp, int nivel, Date ultimaconexion) {
        
         this.idjuego = idjuego;
@@ -110,18 +121,26 @@ public class Partida implements Serializable {
      * @return the ultimaconexion
      */
     public Date getUltimaconexion() {
-        return ultimaconexion;
+        return ultimaconexion = Date.valueOf(LocalDate.now());
     }
 
     /**
-     * @param ultimaconexion the ultimaconexion to set
+     * seter de última conexión
      */
+    public  void setUltimaconexion(){
+        ultimaconexion=Date.valueOf(LocalDate.now());
+    }
     public void setUltimaconexion(Date ultimaconexion) {
         this.ultimaconexion = ultimaconexion;
     }
-
+    /**
+     * Devuelve una representación en formato de cadena de texto de una partida.
+     *
+     * @return La representación del partida.
+     */
     @Override
     public String toString() {
+
         return "Partida{" + "idjuego=" + idjuego + ", idjugador=" + idjugador + ", monedas=" + monedas + ", exp=" + exp + ", nivel=" + nivel + ", ultimaconexion=" + ultimaconexion + '}';
     }
     

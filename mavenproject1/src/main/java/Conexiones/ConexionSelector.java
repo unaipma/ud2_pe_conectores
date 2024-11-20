@@ -12,7 +12,13 @@ import java.sql.SQLException;
  * @author eugeniolorentecristobal
  */
 public class ConexionSelector {
-
+    /**
+     * Obtiene una conexión a la base de datos especificada.
+     *
+     * @param tipoBaseDatos Tipo de base de datos (por ejemplo, "MySQL" o "PostgreSQL").
+     * @return Un objeto {@link Connection} si la conexión es exitosa, o {@code null} si ocurre un error
+     *         o el tipo de base de datos no es soportado.
+     */
     public static Connection obtenerConexion(String tipoBaseDatos) {
         Connection conexion = null;
         try {

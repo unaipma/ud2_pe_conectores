@@ -1,5 +1,6 @@
 package MenuBack;
 
+import auxiliar.Libreriaaux;
 import daos.JugadorDAO;
 import modelos.Jugador;
 
@@ -13,11 +14,21 @@ import java.util.Scanner;
 public class JugadorMenu {
     private JugadorDAO jugadorDAO;
 
+    /**
+     * Constructor que inicializa el menú con una implementación de {@link JugadorDAO}.
+     *
+     * @param jugadorDAO el objeto {@link JugadorDAO} utilizado para interactuar con los datos de los jugadores.
+     */
     public JugadorMenu(JugadorDAO jugadorDAO) {
         this.jugadorDAO = jugadorDAO;
     }
 
-    public void mostrarMenu() {
+    /**
+     * Muestra el menú de opciones al usuario y maneja las interacciones de acuerdo a la elección.
+     *
+     * @throws SQLException si ocurre un error durante las operaciones de base de datos.
+     */
+    public void mostrarMenu() throws SQLException {
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
 
@@ -57,19 +68,23 @@ public class JugadorMenu {
         }
     }
 
+    /**
+     * Solicita al usuario la información necesaria para agregar un nuevo jugador
+     * y lo registra en la base de datos.
+     *
+     * @param scanner el objeto {@link Scanner} utilizado para capturar la entrada del usuario.
+     */
     private void agregarJugador(Scanner scanner) {
         scanner.nextLine();  // Limpiar buffer
         System.out.println("\n--- Agregar un Jugador ---");
-        
-       
         System.out.print("Nickname del jugador: ");
         String nick = scanner.nextLine();
         System.out.print("Nivel de experiencia: ");
-        int experience = scanner.nextInt();
+        int experience = Libreriaaux.compruebaNumero();
         System.out.print("Nivel de vida: ");
-        int lifeLevel = scanner.nextInt();
+        int lifeLevel = Libreriaaux.compruebaNumero();
         System.out.print("Cantidad de monedas: ");
-        int coins = scanner.nextInt();
+        int coins = Libreriaaux.compruebaNumero();
 
         Jugador nuevoJugador = new Jugador(0, nick, experience, lifeLevel, coins);
 
@@ -81,9 +96,15 @@ public class JugadorMenu {
         }
     }
 
+    /**
+     * Solicita al usuario los datos necesarios para actualizar un jugador existente.
+     *
+     * @param scanner el objeto {@link Scanner} utilizado para capturar la entrada del usuario.
+     */
     private void actualizarJugador(Scanner scanner) {
         System.out.println("\n--- Actualizar Jugador ---");
         System.out.print("NickName del jugador a actualizar: ");
+        scanner.nextLine();
         String NickName = scanner.nextLine();
 
         try {
@@ -92,11 +113,11 @@ public class JugadorMenu {
                 System.out.print("Nuevo nickname (actual: " + jugadorExistente.getNick() + "): ");
                 String nuevoNick = scanner.nextLine();
                 System.out.print("Nuevo nivel de experiencia (actual: " + jugadorExistente.getExperience() + "): ");
-                int nuevaExperience = scanner.nextInt();
+                int nuevaExperience = Libreriaaux.compruebaNumero();
                 System.out.print("Nuevo nivel de vida (actual: " + jugadorExistente.getLifeLevel() + "): ");
-                int nuevoLifeLevel = scanner.nextInt();
+                int nuevoLifeLevel = Libreriaaux.compruebaNumero();
                 System.out.print("Nueva cantidad de monedas (actual: " + jugadorExistente.getCoins() + "): ");
-                int nuevasCoins = scanner.nextInt();
+                int nuevasCoins = Libreriaaux.compruebaNumero();
 
                 jugadorExistente.setNick(nuevoNick);
                 jugadorExistente.setExperience(nuevaExperience);
@@ -104,36 +125,51 @@ public class JugadorMenu {
                 jugadorExistente.setCoins(nuevasCoins);
 
                 jugadorDAO.updateJugador(jugadorExistente);
-                System.out.println("\\u001B[32m[INFO] Jugador actualizado exitosamente.\\u001B[0m");
+                System.out.println("[INFO] Jugador actualizado exitosamente.");
             } else {
-                System.out.println("\n[ERROR] No se encontró un jugador con ese ID.");
+                System.out.println("[ERROR] No se encontró un jugador con ese ID.");
             }
         } catch (SQLException e) {
-            System.out.println("\n[ERROR] Jugador no encontrado");
+            System.out.println("[ERROR] Jugador no encontrado");
         }
     }
 
-    private void eliminarJugador(Scanner scanner) {
+    /**
+     * Solicita al usuario el ID de un jugador y lo elimina de la base de datos.
+     *
+     * @param scanner el objeto {@link Scanner} utilizado para capturar la entrada del usuario.
+     * @throws SQLException si ocurre un error durante la operación de eliminación.
+     */
+    private void eliminarJugador(Scanner scanner) throws SQLException {
         System.out.println("\n--- Eliminar Jugador ---");
-        System.out.print("ID del jugador a eliminar: ");
+        System.out.print("Nombre del jugador a eliminar: ");
+        scanner.nextLine();
         String NickName = scanner.nextLine();
 
-        try {
-            if (jugadorDAO.deleteJugador(NickName)) {
-                 System.out.println("Jugador eliminado exitosamente.");
-            }else{
-                System.out.println("El jugador no existe, no se ha podido eliminar");
+        if (jugadorDAO.getJugador(NickName) == null) {
+            System.out.println("Jugador no encontrado");
+        } else {
+            try {
+                if (jugadorDAO.deleteJugador(NickName)) {
+                    System.out.println("Jugador eliminado exitosamente.");
+                } else {
+                    System.out.println("El jugador no existe, no se ha podido eliminar");
+                }
+            } catch (SQLException e) {
+                System.out.println("No se ha podido eliminar el jugador");
             }
-            
-           
-        } catch (SQLException e) {
-            System.out.println("No se ha podido eliminar el jugador");
         }
     }
 
+    /**
+     * Solicita al usuario el ID de un jugador y muestra su información en la consola.
+     *
+     * @param scanner el objeto {@link Scanner} utilizado para capturar la entrada del usuario.
+     */
     private void mostrarJugador(Scanner scanner) {
         System.out.println("\n--- Mostrar Jugador ---");
-        System.out.print("ID del jugador a mostrar: ");
+        System.out.print("Nombre del jugador a mostrar: ");
+        scanner.nextLine();
         String NickName = scanner.nextLine();
 
         try {
@@ -148,6 +184,9 @@ public class JugadorMenu {
         }
     }
 
+    /**
+     * Recupera y muestra en la consola el top 10 de jugadores ordenados por su rendimiento.
+     */
     private void listarTop10Jugadores() {
         System.out.println("\n--- Listar Top 10 Jugadores ---");
 
@@ -165,4 +204,15 @@ public class JugadorMenu {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
