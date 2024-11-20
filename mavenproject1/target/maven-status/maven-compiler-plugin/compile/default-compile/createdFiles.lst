@@ -1,0 +1,10 @@
+MenuBack\JugadorMenu.class
+modelos\Partida.class
+daos\JugadorDAO.class
+auxiliar\JuegoConf.class
+daos\PartidaDAO.class
+daos\VideojuegoDAO.class
+modelos\Videojuego.class
+modelos\Jugador.class
+MenuBack\PartidaMenu.class
+daos\DAOFactory.class

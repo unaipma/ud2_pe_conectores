@@ -12,7 +12,7 @@ CREATE TABLE jugadores (
 
 -- Tabla de Videojuegos
 CREATE TABLE videojuegos (
-    game_id INT PRIMARY KEY,           -- Identificador del juego
+    game_id INT PRIMARY KEY AUTO_INCREMENT,           -- Identificador del juego
     isbn VARCHAR(13) NOT NULL,         -- Identificador ISBN del juego
     title VARCHAR(255) NOT NULL,       -- Título del videojuego
     player_count INT NOT NULL,         -- Número de jugadores registrados

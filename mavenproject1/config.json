@@ -1,0 +1,9 @@
+{
+  "host": "ep-spring-rain-a24pgyn5.eu-central-1.aws.neon.tech/ud2conectores?user\u003dpostgresql\u0026password\u003dab4GIg8KBWny\u0026sslmode\u003drequire",
+  "port": -1,
+  "user": "postgresql",
+  "pass": "gg",
+  "nick_name": "Def",
+  "partidaId": 4,
+  "videojuegoId": 1
+}

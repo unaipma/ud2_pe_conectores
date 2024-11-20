@@ -1,5 +1,4 @@
 -- Selección de la base de datos
-\c ud2conectores;
 
 -- Tabla de Jugadores
 CREATE TABLE jugadores (

@@ -4,6 +4,7 @@
  */
 package modelos;
 
+import auxiliar.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -38,7 +39,7 @@ public class Jugador implements Serializable {
         this.experience = experience;
         this.life_level = lifeLevel;
         this.coins = coins;
-        this.session_count = 0;
+        this.session_count =  this.session_count + 1;
         this.last_login = sesion();
     }
 
