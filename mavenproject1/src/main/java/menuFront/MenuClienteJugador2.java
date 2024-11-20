@@ -19,20 +19,48 @@ import modelos.Partida;
 
 public class MenuClienteJugador2 {
 
-    private final JugadorDAO jugDAO;
-    private final Jugador jugador;
-    private final PartidaDAO partidaDAO;
+    private JugadorDAO jugDAO;
+    private Jugador jugador;
+    private PartidaDAO partidaDAO;
     private Partida partida = null;
-    private final JuegoConf juegoconf = new JuegoConf() ;
+    private JuegoConf juegoconf = new JuegoConf() ;
     private final SQLitePlayerProgressDAO playerProgressDAO = new SQLitePlayerProgressDAO();
     
     private final ConfiguracionServicio configuracionServicio;
     private final GestionPartidasServicio gestionPartidasServicio;
     private final JuegoServicio juegoServicio;
 
-    public MenuClienteJugador2() throws IOException, SQLException {
+    public MenuClienteJugador2() throws SQLException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bienvenido a la Aplicación de CLiente");
+        if (Json.loadConfig() != null) {
+            System.out.println("¿Quiere continuar con un jugador local o cargar uno nuevo?");
+            System.out.println("1. Si \t 2. No");
+            int num = scanner.nextInt();
+            boolean res;
+            switch (num){
+                case 1:
+                    res = true;
+                case 2:
+                    res = false;
+                default:
+                    res = true;
+            }
+            if (!res) {
+                menuConexion(scanner);
+            } else {
+                juegoconf = Json.loadConfig();
+                jugador.setNick(juegoconf.getNick_name());
+            }
+        } else {
+            menuConexion(scanner);
+        }
+        this.configuracionServicio = new ConfiguracionServicio();
+        this.gestionPartidasServicio = new GestionPartidasServicio(jugador);
+        this.juegoServicio = new JuegoServicio( jugador);
+    }
+
+    private void menuConexion (Scanner scanner) throws SQLException {
         System.out.println("Indica que base de datos quieres utilizar : 1.Mysql 2. Postgres");
         int n = scanner.nextInt();
         String tipoBD;
@@ -50,31 +78,28 @@ public class MenuClienteJugador2 {
         }
         jugDAO = DAOFactory.getJugadorDAO(tipoBD);
         listarTop10Jugadores();
-        
+
         System.out.println("Escriba el NickName deseado");
         scanner.nextLine();
         String NickName = scanner.nextLine();
         jugador = jugDAO.getJugador(NickName);
-        
+
         partidaDAO = DAOFactory.getPartidaDAO(tipoBD);
         listarTop10Partidas();
-        
+
         System.out.println("Escriba la partida deseada");
-        int partida = scanner.nextInt();
-        this.partida = partidaDAO.getPartidasByPlayer(jugador.getId()).get(partida-1);
-        
-        if ( playerProgressDAO.getPlayerProgressById(jugador.getId())==null) {
+        int partidaElegida = scanner.nextInt();
+        this.partida = partidaDAO.getPartidasByPlayer(jugador.getId()).get(partidaElegida - 1);
+
+        if (playerProgressDAO.getPlayerProgressById(jugador.getId()) == null) {
             playerProgressDAO.addPlayerProgress(jugador);
-            
         }
         juegoconf.setNick_name(NickName);
-        
+        juegoconf.setPartidaId(partida.getIdjuego());
+
         Json.saveConfig(juegoconf);
-        
-        this.configuracionServicio = new ConfiguracionServicio();
-        this.gestionPartidasServicio = new GestionPartidasServicio(jugador);
-        this.juegoServicio = new JuegoServicio( jugador);
     }
+
     private void listarTop10Jugadores() {
         System.out.println("\n--- Listar Jugadores ---");
 

@@ -35,7 +35,7 @@ import modelos.PlayerProgress;
  *
  * @author eugeniolorentecristobal
  */
-public class MenuClienteJugador {
+public class MenuClienteJugador {/*
     private ConfjugadorLite  conf;
     private JuegoConf juegoconf;
     private Json json = new Json();
@@ -389,7 +389,7 @@ public class MenuClienteJugador {
                     experience,
                     lifeLevel,
                     coins,
-                    0,
+                    //0,
                     lastLogin
             );
 
@@ -480,5 +480,5 @@ public class MenuClienteJugador {
     public static void main(String[] args) throws IOException, SQLException {
         MenuClienteJugador menu = new MenuClienteJugador();
         menu.mostrarMenuPrincipal();
-    }
+    }*/
 }

@@ -16,6 +16,8 @@ public class JuegoConf {
     private String pass;
     private String nick_name;
 
+    private int partidaId;
+
     // Constructor
     public JuegoConf(String host, int port, String user, String pass, String nick_name) {
         this.host = host;
@@ -23,7 +25,14 @@ public class JuegoConf {
         this.user = user;
         this.pass = pass;
         this.nick_name = nick_name;
-        
+    }
+    public JuegoConf(String host, int port, String user, String pass, String nick_name, int partidaId) {
+        this.host = host;
+        this.port = port;
+        this.user = user;
+        this.pass = pass;
+        this.nick_name = nick_name;
+        this.partidaId = partidaId;
     }
 
     public JuegoConf() {
@@ -69,6 +78,14 @@ public class JuegoConf {
 
     public void setNick_name(String nick_name) {
         this.nick_name = nick_name;
+    }
+
+    public int getPartidaId() {
+        return partidaId;
+    }
+
+    public void setPartidaId(int partidaId) {
+        this.partidaId = partidaId;
     }
 
     public boolean verificarCredenciales(int playerId, String password) {

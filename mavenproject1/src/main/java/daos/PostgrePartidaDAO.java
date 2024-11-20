@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import modelos.Partida;
+import modelos.Videojuego;
 
 /**
  *
@@ -38,6 +39,12 @@ public class PostgrePartidaDAO implements PartidaDAO{
             stmt.setDate(6, partida.getUltimaconexion());
             stmt.executeUpdate();
         }
+
+
+
+        PostgrevideojuegoDAO pg = new PostgrevideojuegoDAO();
+        Videojuego videojuego = pg.getVideojuego(partida.getIdjuego());
+        videojuego.setPlayer_count(videojuego.getPlayer_count()+1);
     }
 
     @Override
@@ -65,6 +72,7 @@ public class PostgrePartidaDAO implements PartidaDAO{
 
     @Override
     public void updatePartida(Partida partida) throws SQLException {
+
     String sql = "UPDATE partidas SET game_id = ?, player_id = ?, experience = ?, life_level = ?, coins = ?, session_date = ? WHERE player_id = ? AND game_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
         stmt.setInt(1, partida.getIdjuego());
@@ -78,7 +86,10 @@ public class PostgrePartidaDAO implements PartidaDAO{
        
         stmt.executeUpdate();
     }
-}
+        PostgrevideojuegoDAO pg = new PostgrevideojuegoDAO();
+        Videojuego videojuego = pg.getVideojuego(partida.getIdjuego());
+        videojuego.setPlayer_count(videojuego.getPlayer_count()+1);
+    }
 
     
 } 

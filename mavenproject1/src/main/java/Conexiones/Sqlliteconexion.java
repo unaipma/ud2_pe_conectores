@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class Sqlliteconexion {
     public static Connection getConnection() throws SQLException {
          String urlUnai = "jdbc:sqlite:C:\\Users\\unaip\\OneDrive\\Documentos\\github\\ud2_pe_conectores\\ud2conectores.db"; // Cambia este path a tu base de datos SQLite
-         String urlEugenio = "jdbc:sqlite:jdbc:sqlite:/Volumes/Eugenio/MULWEB2/Acceso a datos/Tema02/ud2_pe_conectores/ud2conectores.db";
+         String urlEugenio = "jdbc:sqlite:/Volumes/Eugenio/MULWEB2/Acceso a datos/Tema02/ud2_pe_conectores/ud2conectores.db";
          String urlEugenioClase = "jdbc:sqlite:G:\\MULWEB2\\Acceso a datos\\Tema02\\ud2_pe_conectores\\ud2conectores.db"; //EugenioClase
         return DriverManager.getConnection(urlEugenioClase);
     }

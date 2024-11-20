@@ -72,7 +72,7 @@ public class PartidaMenu {
             partidaDAO.addPartida(nuevaPartida);
             System.out.println("Partida agregada exitosamente.");
         } catch (SQLException e) {
-            System.out.println("Error al agregar la partida");
+            System.out.println("Error al agregar la partida"  + e.getMessage());
         }
     }
 

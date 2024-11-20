@@ -12,6 +12,7 @@ import daos.SQLitePlayerProgressDAO;
 import modelos.Jugador;
 import modelos.PlayerProgress;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -53,9 +54,7 @@ public class JuegoServicio {
     }
 
     private void iniciarNuevaPartida(Scanner scanner) {
-        
-        
-        
+
         System.out.println("\nIniciar Nueva Partida:");
 
         try {
@@ -69,7 +68,7 @@ public class JuegoServicio {
             System.out.print("Introduce el nivel de vida inicial: ");
             int lifeLevel = scanner.nextInt();
 
-            String lastLogin = (LocalDate.now().toString());
+            Date lastLogin = Date.valueOf(LocalDate.now());
 
             // Crear objeto PlayerProgress
             PlayerProgress nuevaPartida = new PlayerProgress(
@@ -78,11 +77,9 @@ public class JuegoServicio {
                     experience,
                     lifeLevel,
                     coins,
-                    0,
                     lastLogin
             );
 
-           
             sqliteManager.addPlayerProgress(nuevaPartida);
 
             System.out.println("Nueva partida iniciada con éxito.");

@@ -38,7 +38,7 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
             stmt.setInt(4, progress.getLifeLevel());
             stmt.setInt(5, progress.getCoins());
             stmt.setInt(6, progress.getSessionCount());
-            stmt.setString(7, progress.getLastLogin()); // Guardar como texto en formato "YYYY-MM-DD HH:MM:SS"
+            stmt.setDate(7, progress.getLastLogin()); // Guardar como texto en formato "YYYY-MM-DD HH:MM:SS"
 
             stmt.executeUpdate();
         }
@@ -80,8 +80,8 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
                         rs.getInt("experience"),
                         rs.getInt("life_level"),
                         rs.getInt("coins"),
-                        rs.getInt("session_count"),
-                        rs.getString("last_login")
+                        //rs.getInt("session_count"),
+                        rs.getDate("last_login")
                 );
                 progressList.add(progress);
             }
@@ -101,7 +101,7 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
             stmt.setInt(3, progress.getLifeLevel());
             stmt.setInt(4, progress.getCoins());
             stmt.setInt(5, progress.getSessionCount());
-            stmt.setString(6, progress.getLastLogin());
+            stmt.setDate(6, progress.getLastLogin());
             stmt.setInt(7, progress.getPlayerId());
 
             stmt.executeUpdate();
@@ -124,8 +124,8 @@ public class SQLitePlayerProgressDAO implements PlayerProgressDAO {
                         rs.getInt("experience"),
                         rs.getInt("life_level"),
                         rs.getInt("coins"),
-                        rs.getInt("session_count"),
-                        rs.getString("last_login")
+                        //rs.getInt("session_count"),
+                        rs.getDate("last_login")
                 );
                 progressList.add(progress);
             }
