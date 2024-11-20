@@ -1,0 +1,9 @@
+{
+  "host": "localhost",
+  "port": -1,
+  "user": "mysql@localhost",
+  "pass": "gg",
+  "nick_name": "antonio",
+  "partidaId": 1,
+  "videojuegoId": 1
+}
